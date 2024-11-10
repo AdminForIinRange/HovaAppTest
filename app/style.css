@@ -1,0 +1,10 @@
+/* Add this to your global stylesheet (e.g., styles.css or similar) */
+@keyframes slide-in {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  

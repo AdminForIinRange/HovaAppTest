@@ -6,61 +6,51 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../constants";
 import { CustomButton, Loader } from "../components";
 import { useGlobalContext } from "../context/GlobalProvider";
+import { useEffect, useState } from "react";
+import  "./style.css";
 
 const Welcome = () => {
+  const [show, setShow] = useState(false);
+  const [clickLogin, setclickLogin] = useState(false);
+  const [clickSignup, setclickSignup] = useState(false);
+  const [phoneNumberStage, setPhoneNumberStage] = useState(true);
+  const [OPTstage, setOPTstage] = useState(false);
+  const [verified, setverified] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { loading, isLogged } = useGlobalContext();
 
-  if (!loading && isLogged) return <Redirect href="/home" />;
-
+  // if (!loading && isLogged) return <Redirect href="/home" />;
+  useEffect(() => {
+    setTimeout(() => setShow(true), 3000);
+  }, []);
   return (
-    <SafeAreaView className="bg-primary h-full">
+    <SafeAreaView className="bg-[#0162F1] flex-1">
       <Loader isLoading={loading} />
 
-      <ScrollView
-        contentContainerStyle={{
-          height: "100%",
-        }}
-      >
-        <View className="w-full flex justify-center items-center h-full px-4">
-          <Image
-            source={images.logo}
-            className="w-[130px] h-[84px]"
-            resizeMode="contain"
-          />
 
-          <Image
-            source={images.cards}
-            className="max-w-[380px] w-full h-[298px]"
-            resizeMode="contain"
-          />
-
-          <View className="relative mt-5">
-            <Text className="text-3xl text-white font-bold text-center">
-              Discover Endless{"\n"}
-              Possibilities with{" "}
-              <Text className="text-secondary-200">Aora</Text>
-            </Text>
-
-            <Image
-              source={images.path}
-              className="w-[136px] h-[15px] absolute -bottom-2 -right-8"
-              resizeMode="contain"
-            />
-          </View>
-
-          <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">
-            Where Creativity Meets Innovation: Embark on a Journey of Limitless
-            Exploration with Aora
+      <View className="flex-1 justify-center items-center  mb-[200px] px-4">
+        <View className="relative mt-5">
+          <Text className="text-8xl text-white font-[800] text-center tracking-[-8px]">
+            Hova
           </Text>
-
-          <CustomButton
-            title="Continue with Email"
-            handlePress={() => router.push("/sign-in")}
-            containerStyles="w-full mt-7"
-          />
         </View>
-      </ScrollView>
+      </View>
 
+      <View
+        className={`absolute bottom-0 w-full bg-white p-8 h-[400px] rounded-t-xl ${
+          show ? "animate-slide-in" : ""
+        }`}
+        // style={{
+        //   transition: "all 0.8s ease",
+        // }}
+      >
+
+
+
+
+
+      </View>
       <StatusBar backgroundColor="#161622" style="light" />
     </SafeAreaView>
   );
