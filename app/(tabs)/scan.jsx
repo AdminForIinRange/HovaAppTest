@@ -24,32 +24,10 @@ const Scan = () => {
   return (
     <SafeAreaView className="bg-white h-full">
       <ScrollView>
-        <View
-          className=" flex-row justify-space-between   items-start w-full   h-full px-4 my-2"
-          style={{
-            minHeight: Dimensions.get("window").height - 100,
-          }}
-        >
-          <View className="flex-row items-center justify-start w-[50%]   gap-[10px]  ">
-
-            <Image
-              source={images.profile}
-              resizeMode="contain"
-              className="w-[45px] h-[45px] rounded-full"
-            />
-            <Text className="text-[20px] font-semibold text-primary  ">
-              Moring, User!
-            </Text>
-          </View>
-          <View className="flex-row items-center justify-end w-[50%] gap-[10px]  ">
-            <Image
-              source={images.scan}
-              resizeMode="contain"
-              className="w-[45px] h-[45px] rounded-full"
-              
-            />
-          </View>
-        </View>
+        <Text>
+          Cam function
+        </Text>
+      
       </ScrollView>
     </SafeAreaView>
   );
