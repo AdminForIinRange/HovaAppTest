@@ -119,7 +119,7 @@ Download the [Expo Go](https://expo.dev/go) app onto your device, then use it to
 <details>
 <summary><code>tailwind.config.js</code></summary>
 
-```javascript
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
@@ -156,7 +156,7 @@ module.exports = {
   },
   plugins: [],
 };
-```
+
 
 </details>
 

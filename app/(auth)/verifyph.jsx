@@ -92,7 +92,7 @@ const SignUp = () => {
             otherStyles="mt-10"
           /> */}
 
-          <View className="mt-20 flex-row space-x-2 " >
+          <View className="mt-6 flex-row space-x-2">
             <Pressable
               onPress={() => setModalVisible(true)}
               className="flex-row items-center space-x-1 rounded-lg border border-gray-200 px-2 py-3"
@@ -160,7 +160,7 @@ const SignUp = () => {
           <CustomButton 
             title="continue"
             handlePress={submit}
-            containerStyles="mt-[100px]"
+            containerStyles="mt-[150px]"
             isLoading={isSubmitting}
             textColor="white"
             buttonBackgroundColor="#0162F1"
