@@ -37,7 +37,7 @@ const Test = () => {
               className="w-[45px] h-[45px] rounded-full"
             />
             <Text className="text-[20px] font-semibold text-primary  ">
-              Moring, User!
+              Hi, User!
             </Text>
           </View>
           <View className="flex-row items-center justify-end w-[50%] gap-[10px]  ">

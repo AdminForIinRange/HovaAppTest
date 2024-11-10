@@ -35,7 +35,12 @@ const SignUp = () => {
   const inputRefs = useRef([...Array(4)].map(() => useRef(null)));
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(countries[0]);
-  const [modalVisible, setModalVisible] = useState(false);
+
+  const [modalNameVisible, setModalNameVisible] = useState(false);
+  const [modalDOBVisible, setModalDOBVisible] = useState(false);
+  const [modalPhoneVisible, setModalPhoneVisible] = useState(false);
+  const [modalGenderVisible, setModalGenderisible] = useState(false);
+  const [modalRejionVisible, setModalPhoneRejionVisible] = useState(false);
   const [modalOPTVisible, setModalOPTVisible] = useState(false);
 
   const { setUser, setIsLogged } = useGlobalContext();
@@ -47,6 +52,68 @@ const SignUp = () => {
     password: "",
   });
   const slideAnim = useRef(new Animated.Value(-100)).current;
+
+  useEffect(() => {
+    if (modalNameVisible) {
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(slideAnim, {
+        toValue: 1000,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [modalNameVisible]);
+  useEffect(() => {
+    if (modalPhoneVisible) {
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(slideAnim, {
+        toValue: 1000,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [modalPhoneVisible]);
+
+  useEffect(() => {
+    if (modalGenderVisible) {
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(slideAnim, {
+        toValue: 1000,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [modalGenderVisible]);
+  useEffect(() => {
+    if (modalDOBVisible) {
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(slideAnim, {
+        toValue: 1000,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [modalDOBVisible]);
 
   useEffect(() => {
     if (modalOPTVisible) {
@@ -142,7 +209,7 @@ const SignUp = () => {
 
           <View className="mt-20 flex-row space-x-2 ">
             <Pressable
-              onPress={() => setModalVisible(true)}
+              onPress={() => setModalPhoneRejionVisible(true)}
               className=" flex-row items-center space-x-1 rounded-lg border text-[18px]  border-gray-200 px-2 py-3"
             >
               <Text className=" text-[18px]  font-semibold placeholder:text-Primary ">
@@ -166,8 +233,8 @@ const SignUp = () => {
           <Modal
             animationType="slide"
             transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => setModalVisible(false)}
+            visible={modalRejionVisible}
+            onRequestClose={() => setModalPhoneRejionVisible(false)}
           >
             <View className="flex-1 ">
               <View className="mt-auto h-3/4 rounded-t-3xl bg-white   border-gray-300 border-2 p-4">
@@ -176,7 +243,7 @@ const SignUp = () => {
                     Select Country
                   </Text>
                   <Pressable
-                    onPress={() => setModalVisible(false)}
+                    onPress={() => setModalPhoneRejionVisible(false)}
                     className="rounded-full p-2"
                   >
                     <Text className="text-secondary">Close</Text>
@@ -191,7 +258,7 @@ const SignUp = () => {
                     <Pressable
                       onPress={() => {
                         setSelectedCountry(item);
-                        setModalVisible(false);
+                        setModalPhoneRejionVisible(false);
                       }}
                       className="flex-row items-center space-x-4 border-b border-gray-100 py-4"
                     >
@@ -231,8 +298,77 @@ const SignUp = () => {
                 }}
               >
                 <View className="flex-col items-start justify-between p-2.5">
-                <Pressable
-                     onPress={() => {
+                  <Pressable
+                    onPress={() => {
+                      Animated.timing(slideAnim, {
+                        toValue: 1000,
+                        duration: 500,
+                        useNativeDriver: true,
+                      }).start(() => setModalOPTVisible(false));
+                    }}
+                    className="rounded-full p-2"
+                  >
+                    <Image
+                      source={icons.leftArrow}
+                      bgColor="transparent"
+                      tintColor={"#3A3A3A"}
+                      resizeMode="contain"
+                      className="w-7 h-7"
+                    />
+                  </Pressable>
+                  <Text className="text-[36px] font-semibold text-primary mt-5">
+                    Verify your phone number
+                  </Text>
+                  <Text className="text-[20px] mt-5 font-medium text-secondary w-[80%]">
+                    Please check your phone for the confirmation code we sent.
+                  </Text>
+                </View>
+
+                <View className="mt-8 flex-row justify-center space-x-[20px]">
+                  {code.map((digit, index) => (
+                    <TextInput
+                      key={index}
+                      ref={inputRefs.current[index]}
+                      placeholder={`${index + 1}`}
+                      className="placeholder:text-primary h-[70px] w-[70px] rounded-lg text-primary
+                  border font-semibold border-gray-200 text-center text-xl"
+                      maxLength={1}
+                      keyboardType="numeric"
+                      value={digit}
+                      onChangeText={(text) => handleCodeChange(text, index)}
+                      onKeyPress={(e) => handleKeyPress(e, index)}
+                      selectTextOnFocus
+                    />
+                  ))}
+                </View>
+
+                <CustomButton
+                  title="Continue"
+                  handlePress={submitOPT}
+                  containerStyles="mt-[100px]"
+                  isLoading={isSubmitting}
+                  textColor="white"
+                  buttonBackgroundColor="#0162F1"
+                />
+              </Animated.View>
+            </View>
+          </Modal>
+
+          <Modal
+            transparent={true}
+            visible={modalOPTVisible}
+            onRequestClose={() => setModalOPTVisible(false)}
+          >
+            <View className="flex-1 ">
+              <Animated.View
+                className="h-full w-full bg-white border-gray-300 border-2 p-4"
+                style={{
+                  transform: [{ translateX: slideAnim }],
+                }}
+              >
+                <View className="flex-col items-start justify-between p-2.5">
+                  <Pressable
+                    onPress={() => {
                       Animated.timing(slideAnim, {
                         toValue: 1000,
                         duration: 500,
