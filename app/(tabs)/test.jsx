@@ -12,7 +12,7 @@ import {
 } from "react-native";
 
 import { images } from "../../constants";
-
+import { icons } from "../../constants";
 // import useAppwrite from "../../lib/useAppwrite";
 // import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
 
@@ -24,18 +24,30 @@ const Test = () => {
     <SafeAreaView className="bg-white h-full">
       <ScrollView>
         <View
-          className="w-full flex  h-full px-4 my-6"
+          className=" flex-row justify-space-between   items-start w-full   h-full px-4 my-2"
           style={{
             minHeight: Dimensions.get("window").height - 100,
           }}
         >
-          <Text className="text-[36px] font-semibold text-primary  ">
-            Welcome, User
-          </Text>
+          <View className="flex-row items-center justify-start w-[50%]   gap-[10px]  ">
 
-          <Text className="text-[20px] mt-5 font-pmedium text-secondary w-[90%]  ">
-            Lorem ipsum dolor sit amet consecte
-          </Text>
+            <Image
+              source={images.profile}
+              resizeMode="contain"
+              className="w-[45px] h-[45px] rounded-full"
+            />
+            <Text className="text-[20px] font-semibold text-primary  ">
+              Moring, User!
+            </Text>
+          </View>
+          <View className="flex-row items-center justify-end w-[50%] gap-[10px]  ">
+            <Image
+              source={icons.scaner}
+              resizeMode="contain"
+              className="w-[45px] h-[45px] rounded-full"
+              
+            />
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

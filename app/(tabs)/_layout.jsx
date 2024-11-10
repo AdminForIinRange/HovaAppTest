@@ -38,8 +38,8 @@ const TabLayout = () => {
           alignItems: "center",
           tabBarLabelStyle: { color: "#6F6F6F" },
 
-          tabBarActiveTintColor: "#0162F1",
-          tabBarInactiveTintColor: "#6F6F6F",
+          // tabBarActiveTintColor: "#0162F1",
+          // tabBarInactiveTintColor: "#6F6F6F",
           tabBarShowLabel: false,
           tabBarStyle: {
             backgroundColor: "#fff",
@@ -88,7 +88,7 @@ const TabLayout = () => {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
-                icon={icons.scan}
+                icon={icons.scaner}
                 color={color}
                 name="Scan"
                 focused={focused}
