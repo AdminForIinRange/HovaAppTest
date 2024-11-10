@@ -9,6 +9,10 @@ const GlobalProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [gender, setGender] = useState("");
+  const [dob, setDob] = useState("");
 
   useEffect(() => {
     getCurrentUser()
@@ -29,9 +33,25 @@ const GlobalProvider = ({ children }) => {
       });
   }, []);
 
+  useEffect(() => {
+    console.log("Name:", name);
+    console.log("Phone Number:", phoneNumber);
+    console.log("Gender:", gender);
+    console.log("Date of Birth:", dob);
+
+  }, [name, phoneNumber, gender, dob]);
+
   return (
     <GlobalContext.Provider
       value={{
+        name,
+        setName,
+        phoneNumber,
+        setPhoneNumber,
+        gender,
+        setGender,
+        dob,
+        setDob,
         isLogged,
         setIsLogged,
         user,
@@ -45,3 +65,4 @@ const GlobalProvider = ({ children }) => {
 };
 
 export default GlobalProvider;
+

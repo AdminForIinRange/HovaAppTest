@@ -64,7 +64,7 @@ const Welcome = () => {
           />
           <CustomButton
             title="Signup"
-            handlePress={() => router.push("/sign-up")}
+            handlePress={() => router.push("/nameInput")}
             containerStyles="w-full  mt-4 "
             textColor={"black"}
             buttonBackgroundColor={"#ECECEC"}

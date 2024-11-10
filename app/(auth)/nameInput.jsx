@@ -15,19 +15,12 @@ import {
   Animated,
 } from "react-native";
 
-import { images } from "../../constants";
-import { createUser } from "../../lib/appwrite";
 import { CustomButton, FormField } from "../../components";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
-import { icons } from "../../constants";
-import { isLoading } from "expo-font";
+function NameInput() {
+  const { name, setName } = useGlobalContext();
 
-import PhoneInput from "../../components/Inputs/PhoneInput";
-import NameInput from "../../components/Inputs/NameInput";
-
-const SignUp = () => {
-  const { name, gender, dob, phoneNumber } = useGlobalContext();
   return (
     <SafeAreaView className="bg-white h-full p-2.5 ">
       <ScrollView>
@@ -38,15 +31,23 @@ const SignUp = () => {
           }}
         >
           <Text className="text-[36px] font-semibold text-primary  ">
-            Welcome {name}, {gender}, {dob}, {phoneNumber}
+            Whats your full name?
           </Text>
-          <Text className="text-[24px] font-semibold text-secondary   font-psemibold">
-            Ready to sumbit
+
+          <Text className="text-[20px] mt-5 font-pmedium text-secondary w-[80%]  ">
+            You wont be able to change this later.
           </Text>
+
+          <TextInput
+            className=" mt-[100px] flex-row border-2 border-[#D1D4DE] w-full h-16 px-4 rounded-2xl focus:border-secondary items-center"
+            keyboardType="default"
+            value={name}
+            onChangeText={(e) => setName(e)}
+          />
 
           <CustomButton
             title="continue"
-            handlePress={() => router.push("/sign-up")}
+            handlePress={() => router.push("/dOBInput")}
             containerStyles="mt-[100px]"
             textColor="white"
             buttonBackgroundColor="#0162F1"
@@ -55,6 +56,6 @@ const SignUp = () => {
       </ScrollView>
     </SafeAreaView>
   );
-};
+}
 
-export default SignUp;
+export default NameInput;

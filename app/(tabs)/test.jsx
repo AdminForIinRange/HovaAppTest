@@ -17,9 +17,10 @@ import { icons } from "../../constants";
 // import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
 
 // import { EmptyState, SearchInput, Trending, VideoCard } from "../../components";
-// import { useGlobalContext } from "../../context/GlobalProvider";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const Test = () => {
+  const { name, gender, dob, phoneNumber } = useGlobalContext();
   return (
     <SafeAreaView className="bg-white h-full">
       <ScrollView>
@@ -37,7 +38,7 @@ const Test = () => {
               className="w-[45px] h-[45px] rounded-full"
             />
             <Text className="text-[20px] font-semibold text-primary  ">
-              Hi, User!
+      Welcome Back, {name} {gender}, {dob}, {phoneNumber}
             </Text>
           </View>
           <View className="flex-row items-center justify-end w-[50%] gap-[10px]  ">
