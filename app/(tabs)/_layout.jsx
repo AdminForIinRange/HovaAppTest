@@ -26,14 +26,18 @@ const TabIcon = ({ icon, color, name, focused }) => {
 };
 
 const TabLayout = () => {
-  const { loading, isLogged } = useGlobalContext();
+  // const { loading, isLogged } = useGlobalContext();
 
-  if (!loading && !isLogged) return <Redirect href="/sign-in" />;
+  // if (!loading && !isLogged) return <Redirect href="/sign-in" />;
 
   return (
     <>
       <Tabs
         screenOptions={{
+          justifyContent: "center",
+          alignItems: "center",
+          tabBarLabelStyle: { color: "#fff" },
+          
           tabBarActiveTintColor: "#FFA001",
           tabBarInactiveTintColor: "#CDCDE0",
           tabBarShowLabel: false,
@@ -45,7 +49,7 @@ const TabLayout = () => {
           },
         }}
       >
-        <Tabs.Screen
+        {/* <Tabs.Screen
           name="home"
           options={{
             title: "Home",
@@ -59,10 +63,25 @@ const TabLayout = () => {
               />
             ),
           }}
-        />
-       
+        /> */}
 
         <Tabs.Screen
+          name="test"
+          options={{
+            title: "Test",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.plus}
+                color={color}
+                name="Test"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+
+        {/* <Tabs.Screen
           name="create"
           options={{
             title: "Create",
@@ -91,10 +110,10 @@ const TabLayout = () => {
               />
             ),
           }}
-        />
+        /> */}
       </Tabs>
 
-      <Loader isLoading={loading} />
+      {/* <Loader isLoading={loading} /> */}
       <StatusBar backgroundColor="#161622" style="light" />
     </>
   );

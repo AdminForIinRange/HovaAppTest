@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
@@ -12,6 +12,7 @@ import {
   Pressable,
   Modal,
   FlatList,
+  Animated,
 } from "react-native";
 
 import { images } from "../../constants";
@@ -45,6 +46,23 @@ const SignUp = () => {
     email: "",
     password: "",
   });
+  const slideAnim = useRef(new Animated.Value(-100)).current;
+
+  useEffect(() => {
+    if (modalOPTVisible) {
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(slideAnim, {
+        toValue: 1000,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [modalOPTVisible]);
 
   const handleCodeChange = (text, index) => {
     const newCode = [...code];
@@ -95,7 +113,7 @@ const SignUp = () => {
   const submitOPT = async () => {
     setModalOPTVisible(false);
     Alert.alert("Success", "User signed up successfully");
-    // router.replace("/home");
+    router.push("/test");
   };
 
   return (
@@ -201,16 +219,26 @@ const SignUp = () => {
           />
 
           <Modal
-            animationType="slide"
             transparent={true}
             visible={modalOPTVisible}
             onRequestClose={() => setModalOPTVisible(false)}
           >
             <View className="flex-1 ">
-              <View className="mt-auto h-[90%] rounded-t-3xl bg-white   border-gray-300 border-2 p-4">
-                <View className="flex-col items-start justify-between  p-2.5">
-                  <Pressable
-                    onPress={() => setModalOPTVisible(false)}
+              <Animated.View
+                className="h-full w-full bg-white border-gray-300 border-2 p-4"
+                style={{
+                  transform: [{ translateX: slideAnim }],
+                }}
+              >
+                <View className="flex-col items-start justify-between p-2.5">
+                <Pressable
+                     onPress={() => {
+                      Animated.timing(slideAnim, {
+                        toValue: 1000,
+                        duration: 500,
+                        useNativeDriver: true,
+                      }).start(() => setModalOPTVisible(false));
+                    }}
                     className="rounded-full p-2"
                   >
                     <Image
@@ -218,27 +246,25 @@ const SignUp = () => {
                       bgColor="transparent"
                       tintColor={"#3A3A3A"}
                       resizeMode="contain"
-                      className="w-6 h-6"
+                      className="w-7 h-7"
                     />
                   </Pressable>
                   <Text className="text-[36px] font-semibold text-primary mt-5">
                     Verify your phone number
                   </Text>
-
-                  <Text className="text-[20px] mt-5 font-pmedium text-secondary w-[80%]  ">
-                    please check your phone for the confirmation code we sent.
+                  <Text className="text-[20px] mt-5 font-medium text-secondary w-[80%]">
+                    Please check your phone for the confirmation code we sent.
                   </Text>
                 </View>
 
-                <View className="mt-8 flex-row justify-center space-x-[20px] text-primary ">
+                <View className="mt-8 flex-row justify-center space-x-[20px]">
                   {code.map((digit, index) => (
                     <TextInput
                       key={index}
                       ref={inputRefs.current[index]}
                       placeholder={`${index + 1}`}
                       className="placeholder:text-primary h-[70px] w-[70px] rounded-lg text-primary
-                        border font-semibold 
-                         border-gray-200 text-center text-xl"
+                  border font-semibold border-gray-200 text-center text-xl"
                       maxLength={1}
                       keyboardType="numeric"
                       value={digit}
@@ -250,14 +276,14 @@ const SignUp = () => {
                 </View>
 
                 <CustomButton
-                  title="continue"
-                  handlePress={submitOPT} // ON SUMBIT OPEN A MODAL WITH VERFIY CODE, THIS IMPNETION IS WAY BETTER FOR UX AND BACKEND
+                  title="Continue"
+                  handlePress={submitOPT}
                   containerStyles="mt-[100px]"
                   isLoading={isSubmitting}
                   textColor="white"
                   buttonBackgroundColor="#0162F1"
                 />
-              </View>
+              </Animated.View>
             </View>
           </Modal>
 

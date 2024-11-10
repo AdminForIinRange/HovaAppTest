@@ -24,6 +24,9 @@ const Welcome = () => {
   useEffect(() => {
     setTimeout(() => setShow(true), 3000);
   }, []);
+
+  // if (show) return <Redirect href="/testHome" />;
+
   return (
     <SafeAreaView className="bg-[#0162F1] flex-1">
       <Loader isLoading={loading} />
