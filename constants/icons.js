@@ -11,8 +11,10 @@ import logout from "../assets/icons/logout.png";
 import eyeHide from "../assets/icons/eye-hide.png";
 import eye from "../assets/icons/eye.png";
 import play from "../assets/icons/play.png";
+import ScanImg from "../assets/icons/ScanImg.png";
 
 export default {
+  ScanImg,
   play,
   bookmark,
   home,

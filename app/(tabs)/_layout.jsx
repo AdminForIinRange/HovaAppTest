@@ -36,15 +36,15 @@ const TabLayout = () => {
         screenOptions={{
           justifyContent: "center",
           alignItems: "center",
-          tabBarLabelStyle: { color: "#fff" },
-          
-          tabBarActiveTintColor: "#FFA001",
-          tabBarInactiveTintColor: "#CDCDE0",
+          tabBarLabelStyle: { color: "#6F6F6F" },
+
+          tabBarActiveTintColor: "#0162F1",
+          tabBarInactiveTintColor: "#6F6F6F",
           tabBarShowLabel: false,
           tabBarStyle: {
-            backgroundColor: "#161622",
+            backgroundColor: "#fff",
             borderTopWidth: 1,
-            borderTopColor: "#232533",
+            borderTopColor: "#fff",
             height: 84,
           },
         }}
@@ -75,6 +75,22 @@ const TabLayout = () => {
                 icon={icons.plus}
                 color={color}
                 name="Test"
+                focused={focused}
+              />
+            ),
+          }}
+        />
+
+<Tabs.Screen
+          name="scan"
+          options={{
+            title: "Scan",
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.scan}
+                color={color}
+                name="Scan"
                 focused={focused}
               />
             ),
