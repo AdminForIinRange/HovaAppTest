@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "sora",
-    "slug": "sora",
+    "name": "hova",
+    "slug": "hova",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,12 +11,11 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "scheme": "sora",
+    "scheme": "hova",
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "package":"com.hova.testApp"
-
+      "package": "com.hova.testApp"
     },
     "android": {
       "adaptiveIcon": {
