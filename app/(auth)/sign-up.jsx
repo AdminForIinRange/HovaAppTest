@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
@@ -19,6 +19,8 @@ import { createUser } from "../../lib/appwrite";
 import { CustomButton, FormField } from "../../components";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
+import { icons } from "../../constants";
+import { isLoading } from "expo-font";
 const countries = [
   { code: "+61", flag: "🇦🇺", name: "Australia" },
   { code: "+1", flag: "🇺🇸", name: "United States" },
@@ -28,9 +30,12 @@ const countries = [
 ];
 
 const SignUp = () => {
+  const [code, setCode] = useState(["", "", "", ""]);
+  const inputRefs = useRef([...Array(4)].map(() => useRef(null)));
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(countries[0]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalOPTVisible, setModalOPTVisible] = useState(false);
 
   const { setUser, setIsLogged } = useGlobalContext();
 
@@ -40,6 +45,23 @@ const SignUp = () => {
     email: "",
     password: "",
   });
+
+  const handleCodeChange = (text, index) => {
+    const newCode = [...code];
+    newCode[index] = text;
+    setCode(newCode);
+
+    // Auto focus next input
+    if (text && index < 3) {
+      inputRefs.current[index + 1].current?.focus();
+    }
+  };
+
+  const handleKeyPress = (event, index) => {
+    if (event.nativeEvent.key === "Backspace" && !code[index] && index > 0) {
+      inputRefs.current[index - 1].current?.focus();
+    }
+  };
 
   const formatPhoneNumber = (text) => {
     // Remove all non-numeric characters
@@ -52,20 +74,28 @@ const SignUp = () => {
   };
 
   const submit = async () => {
-    if (form.username === "" || form.email === "" || form.password === "") {
-      Alert.alert("Error", "Please fill in all fields");
-    }
+    setModalOPTVisible(true);
 
-    setSubmitting(true);
-    try {
-      const result = await createUser(form.email, form.password, form.username);
-      setUser(result);
-      setIsLogged(true);
-    } catch (error) {
-      Alert.alert("Error", error.message);
-    } finally {
-      setSubmitting(false);
-    }
+    // if (form.username === "" || form.email === "" || form.password === "") {
+    //   Alert.alert("Error", "Please fill in all fields");
+    // }
+
+    // setSubmitting(true);
+    // try {
+    //   const result = await createUser(form.email, form.password, form.username);
+    //   setUser(result);
+    //   setIsLogged(true);
+    // } catch (error) {
+    //   Alert.alert("Error", error.message);
+    // } finally {
+    //   setSubmitting(false);
+    // }
+  };
+
+  const submitOPT = async () => {
+    setModalOPTVisible(false);
+    Alert.alert("Success", "User signed up successfully");
+    // router.replace("/home");
   };
 
   return (
@@ -92,17 +122,21 @@ const SignUp = () => {
             otherStyles="mt-10"
           /> */}
 
-          <View className="mt-20 flex-row space-x-2 " >
+          <View className="mt-20 flex-row space-x-2 ">
             <Pressable
               onPress={() => setModalVisible(true)}
-              className="flex-row items-center space-x-1 rounded-lg border border-gray-200 px-2 py-3"
+              className=" flex-row items-center space-x-1 rounded-lg border text-[18px]  border-gray-200 px-2 py-3"
             >
-              <Text>{selectedCountry.flag}</Text>
-              <Text>{selectedCountry.code}</Text>
+              <Text className=" text-[18px]  font-semibold placeholder:text-Primary ">
+                {selectedCountry.flag}
+              </Text>
+              <Text className=" text-[18px] font-semibold placeholder:text-Primary ">
+                {selectedCountry.code}
+              </Text>
             </Pressable>
 
             <TextInput
-              className="flex-1 rounded-lg border border-gray-200 px-4 py-3"
+              className="flex-1 rounded-lg border border-gray-200 px-4 py-3 text-[18px] font-semibold placeholder:text-secondary"
               placeholder="123 456 789"
               keyboardType="numeric"
               value={phoneNumber}
@@ -157,22 +191,83 @@ const SignUp = () => {
             </View>
           </Modal>
 
-          <CustomButton 
+          <CustomButton
             title="continue"
-            handlePress={submit}
+            handlePress={submit} // ON SUMBIT OPEN A MODAL WITH VERFIY CODE, THIS IMPNETION IS WAY BETTER FOR UX AND BACKEND
             containerStyles="mt-[100px]"
             isLoading={isSubmitting}
             textColor="white"
             buttonBackgroundColor="#0162F1"
           />
 
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalOPTVisible}
+            onRequestClose={() => setModalOPTVisible(false)}
+          >
+            <View className="flex-1 ">
+              <View className="mt-auto h-[90%] rounded-t-3xl bg-white   border-gray-300 border-2 p-4">
+                <View className="flex-col items-start justify-between  p-2.5">
+                  <Pressable
+                    onPress={() => setModalOPTVisible(false)}
+                    className="rounded-full p-2"
+                  >
+                    <Image
+                      source={icons.leftArrow}
+                      bgColor="transparent"
+                      tintColor={"#3A3A3A"}
+                      resizeMode="contain"
+                      className="w-6 h-6"
+                    />
+                  </Pressable>
+                  <Text className="text-[36px] font-semibold text-primary mt-5">
+                    Verify your phone number
+                  </Text>
+
+                  <Text className="text-[20px] mt-5 font-pmedium text-secondary w-[80%]  ">
+                    please check your phone for the confirmation code we sent.
+                  </Text>
+                </View>
+
+                <View className="mt-8 flex-row justify-center space-x-[20px] text-primary ">
+                  {code.map((digit, index) => (
+                    <TextInput
+                      key={index}
+                      ref={inputRefs.current[index]}
+                      placeholder={`${index + 1}`}
+                      className="placeholder:text-primary h-[70px] w-[70px] rounded-lg text-primary
+                        border font-semibold 
+                         border-gray-200 text-center text-xl"
+                      maxLength={1}
+                      keyboardType="numeric"
+                      value={digit}
+                      onChangeText={(text) => handleCodeChange(text, index)}
+                      onKeyPress={(e) => handleKeyPress(e, index)}
+                      selectTextOnFocus
+                    />
+                  ))}
+                </View>
+
+                <CustomButton
+                  title="continue"
+                  handlePress={submitOPT} // ON SUMBIT OPEN A MODAL WITH VERFIY CODE, THIS IMPNETION IS WAY BETTER FOR UX AND BACKEND
+                  containerStyles="mt-[100px]"
+                  isLoading={isSubmitting}
+                  textColor="white"
+                  buttonBackgroundColor="#0162F1"
+                />
+              </View>
+            </View>
+          </Modal>
+
           <View className="flex justify-center pt-5 flex-row gap-2">
-            <Text className="text-[18px] text-secondary font-pregular">
+            <Text className="text-[16px] text-secondary font-pregular">
               Have an account already?
             </Text>
             <Link
               href="/sign-in"
-              className="text-[18px] font-psemibold text-secondary"
+              className="text-[16px] font-psemibold text-secondary"
             >
               Login
             </Link>
