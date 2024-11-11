@@ -291,7 +291,7 @@ const PhoneInput = () => {
             </View>
           </Modal>
 
-          <View className="flex justify-center pt-5 flex-row gap-2">
+          {/* <View className="flex justify-center pt-5 flex-row gap-2">
             <Text className="text-[16px] text-secondary font-pregular">
               Have an account already?
             </Text>
@@ -301,7 +301,7 @@ const PhoneInput = () => {
             >
               Login
             </Link>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
     </SafeAreaView>

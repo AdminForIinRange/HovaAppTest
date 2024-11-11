@@ -25,7 +25,7 @@ const Welcome = () => {
     setTimeout(() => setShow(true), 3000);
   }, []);
 
-  // if (true) return <Redirect href="/(auth)/genderInput" />;
+  // if (true) return <Redirect href="/test" />;
 
   return (
     <SafeAreaView className="bg-[#0162F1] flex-1">
