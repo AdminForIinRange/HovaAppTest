@@ -3,6 +3,11 @@ import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { SplashScreen, Stack } from "expo-router";
 import GlobalProvider from "../context/GlobalProvider";
+import { NativeWindStyleSheet } from "nativewind";
+
+NativeWindStyleSheet.setOutput({
+  default: "native",
+});
 
 const RootLayout = () => {
   const [fontsLoaded, error] = useFonts({

@@ -37,8 +37,8 @@ const Test = () => {
               resizeMode="contain"
               className="w-[45px] h-[45px] rounded-full"
             />
-            <Text className="text-[20px] font-semibold text-primary  ">
-      Welcome Back, {name} {gender}, {dob}, {phoneNumber}
+            <Text className="text-[16px] font-semibold text-primary  ">
+      Welcome Back, {name}
             </Text>
           </View>
           <View className="flex-row items-center justify-end w-[50%] gap-[10px]  ">
