@@ -25,7 +25,7 @@ const Test = () => {
     <SafeAreaView className="bg-white h-full">
       <ScrollView>
         <View
-          className=" flex-row justify-space-between   items-start w-full   h-full px-4 my-2"
+          className=" flex-row justify-space-between   items-start w-full   h-full px-4 my-4 "
           style={{
             minHeight: Dimensions.get("window").height - 100,
           }}
