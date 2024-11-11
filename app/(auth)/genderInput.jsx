@@ -78,7 +78,13 @@ function GenderInput() {
 
           <CustomButton
             title="Continue"
-            handlePress={() => router.push("/phoneInput")}
+            handlePress={() => {
+              if (gender.trim() === "") {
+                Alert.alert("Error", "Please enter your Gender");
+                return;
+              }
+              router.push("/phoneInput");
+            }}
             containerStyles="mt-[100px]"
             textColor="white"
             buttonBackgroundColor="#0162F1"

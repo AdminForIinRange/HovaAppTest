@@ -47,7 +47,13 @@ function NameInput() {
 
           <CustomButton
             title="continue"
-            handlePress={() => router.push("/dOBInput")}
+            handlePress={() => {
+              if (name.trim() === "") {
+                Alert.alert("Error", "Please enter your name");
+                return;
+              }
+              router.push("/dOBInput");
+            }}
             containerStyles="mt-[100px]"
             textColor="white"
             buttonBackgroundColor="#0162F1"

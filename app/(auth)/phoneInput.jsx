@@ -31,72 +31,18 @@ const countries = [
 ];
 
 const PhoneInput = () => {
-    
-    const { phoneNumber, setPhoneNumber } = useGlobalContext();
+  const { phoneNumber, setPhoneNumber } = useGlobalContext();
   const [code, setCode] = useState(["", "", "", ""]);
   const inputRefs = useRef([...Array(4)].map(() => useRef(null)));
-  
   const [selectedCountry, setSelectedCountry] = useState(countries[0]);
-
-  const [modalNameVisible, setModalNameVisible] = useState(false);
-  const [modalDOBVisible, setModalDOBVisible] = useState(false);
-  const [modalPhoneVisible, setModalPhoneVisible] = useState(false);
-  const [modalGenderVisible, setModalGenderisible] = useState(false);
+  const [isSubmitting, setSubmitting] = useState(false);
   const [modalRejionVisible, setModalPhoneRejionVisible] = useState(false);
   const [modalOPTVisible, setModalOPTVisible] = useState(false);
 
-  const { setUser, setIsLogged } = useGlobalContext();
-
-  const [isSubmitting, setSubmitting] = useState(false);
+  const [modalDOBVisible, setModalDOBVisible] = useState(false);
 
   const slideAnim = useRef(new Animated.Value(-100)).current;
 
-  useEffect(() => {
-    if (modalNameVisible) {
-      Animated.timing(slideAnim, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      Animated.timing(slideAnim, {
-        toValue: 1000,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [modalNameVisible]);
-  useEffect(() => {
-    if (modalPhoneVisible) {
-      Animated.timing(slideAnim, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      Animated.timing(slideAnim, {
-        toValue: 1000,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [modalPhoneVisible]);
-
-  useEffect(() => {
-    if (modalGenderVisible) {
-      Animated.timing(slideAnim, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      Animated.timing(slideAnim, {
-        toValue: 1000,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [modalGenderVisible]);
   useEffect(() => {
     if (modalDOBVisible) {
       Animated.timing(slideAnim, {
@@ -157,28 +103,21 @@ const PhoneInput = () => {
   };
 
   const submit = async () => {
+    if (phoneNumber.trim() === "") {
+      Alert.alert("Error", "Please enter your Phone Number");
+      return;
+    }
     setModalOPTVisible(true);
-
-    // if (form.username === "" || form.email === "" || form.password === "") {
-    //   Alert.alert("Error", "Please fill in all fields");
-    // }
-
-    // setSubmitting(true);
-    // try {
-    //   const result = await createUser(form.email, form.password, form.username);
-    //   setUser(result);
-    //   setIsLogged(true);
-    // } catch (error) {
-    //   Alert.alert("Error", error.message);
-    // } finally {
-    //   setSubmitting(false);
-    // }
   };
 
   const submitOPT = async () => {
+    if (code === "") {
+      Alert.alert("Error", "Please enter your OTP");
+      return;
+    }
     setModalOPTVisible(false);
     Alert.alert("Success", "User signed up successfully");
-    router.push("/test");
+    router.push("/sign-up");
   };
 
   return (
@@ -282,8 +221,6 @@ const PhoneInput = () => {
             textColor="white"
             buttonBackgroundColor="#0162F1"
           />
-
-         
 
           <Modal
             transparent={true}
