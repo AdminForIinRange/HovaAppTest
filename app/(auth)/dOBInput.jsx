@@ -58,4 +58,57 @@ function DOBInput() {
   );
 }
 
-export default DOBInput;
+// export default DOBInput;
+
+
+// import { useState } from "react";
+// import { SafeAreaView, Text, Button } from "react-native";
+// import DateTimePicker from "@react-native-community/datetimepicker";
+
+// function DOBInput() {
+//   const [date, setDate] = useState(new Date());
+//   const [show, setShow] = useState(false);
+
+//   const onChange = (event, selectedDate) => {
+//     const currentDate = selectedDate || date;
+//     setShow(false);
+//     setDate(currentDate);
+//   };
+
+//   const showDatepicker = () => {
+//     setShow(true);
+//   };
+
+//   return (
+//     <SafeAreaView
+//       style={{
+//         flex: 1,
+//         justifyContent: "center",
+//         alignItems: "center",
+//         backgroundColor: "white",
+//       }}
+//     >
+//       <Text style={{ fontSize: 24, marginBottom: 20 }}>
+//         When is your birthday?
+//       </Text>
+//       <Button onPress={showDatepicker} title="Select your date of birth" />
+
+//       {show && (
+//         <DateTimePicker
+//           testID="dateTimePicker"
+//           value={date}
+//           mode="date"
+//           display="spinner" // Use the "spinner" style for an iOS wheel-like date picker
+//           onChange={onChange}
+//           maximumDate={new Date()} // Optional: Prevent selection of future dates
+//         />
+//       )}
+
+//       <Text style={{ marginTop: 20, fontSize: 18 }}>
+//         Selected date: {date.toLocaleDateString()}
+//       </Text>
+//     </SafeAreaView>
+//   );
+// }
+
+// export default DOBInput;
