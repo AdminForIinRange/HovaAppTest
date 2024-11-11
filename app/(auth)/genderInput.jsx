@@ -28,7 +28,7 @@ function GenderInput() {
 
   const boxStyles = (selected) =>
     `mt-6 flex-col border-2 w-[110px] border-[#D1D4DE] h-[150px] px-4 rounded-2xl items-center justify-center p-2  ${
-      selected && " bg-gray-100 " 
+      selected && " bg-slate-200" 
     }`;
 
   return (
