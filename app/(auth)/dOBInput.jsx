@@ -58,7 +58,7 @@ function DOBInput() {
   );
 }
 
-// export default DOBInput;
+export default DOBInput;
 
 
 // import { useState } from "react";
