@@ -24,26 +24,26 @@ const Welcome = () => {
 
   // Show the modal after a delay
   useEffect(() => {
-    setTimeout(() => setShow(true), 3000);
+    setTimeout(() => setShow(true), 1000);
   }, []);
 
   // Fade in effect for the Hova text
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,  // End opacity is 1
-      duration: 1500,  // Fade duration
+      duration: 500,  // Fade duration
       useNativeDriver: true,  // Optimize performance
     }).start();
   }, []);
 
   return (
     <SafeAreaView className="bg-[#0162F1] flex-1">
-      <View className="flex-1 justify-center items-center mb-[200px] px-4">
+      <View className="flex-1 justify-center items-center mb-[250px] px-4">
         <View className="relative mt-5">
           <Animated.Text  // Use Animated.Text for opacity effect
             style={[
               { opacity: fadeAnim },  // Bind the opacity to the animated value
-              { fontSize: 100, color: 'white', fontWeight: '800', textAlign: 'center', letterSpacing: -8, marginBottom: 50 },
+              { fontSize: 100, color: 'white', fontWeight: '800', textAlign: 'center', letterSpacing: -8  },
             ]}
           >
             Hova
@@ -58,8 +58,8 @@ const Welcome = () => {
         onRequestClose={() => setShow(false)}
       >
         <View className="flex-1">
-          <View className="mt-auto h-2/4 rounded-t-3xl bg-white">
-            <View className="flex-row mt-[25px] items-center justify-center">
+          <View className="mt-auto h-2/4 rounded-t-[50px] bg-white">
+            <View className="flex-row mt-[45px] items-center justify-center">
               <View>
                 <Text className="text-[36px] font-psemibold text-[#414141] text-center">
                   Welcome to Hova
