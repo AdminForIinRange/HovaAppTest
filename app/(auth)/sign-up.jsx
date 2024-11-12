@@ -6,12 +6,18 @@ import { View, Text, ScrollView, Dimensions, Alert } from "react-native";
 import { createUser } from "../../lib/appwrite";
 import { CustomButton } from "../../components";
 import { useGlobalContext } from "../../context/GlobalProvider";
-
+const countries = [
+  { code: "+61", flag: "🇦🇺", name: "Australia" },
+  { code: "+1", flag: "🇺🇸", name: "United States" },
+  { code: "+44", flag: "🇬🇧", name: "United Kingdom" },
+  { code: "+64", flag: "🇳🇿", name: "New Zealand" },
+  { code: "+86", flag: "🇨🇳", name: "China" },
+];
 const SignUp = () => {
   const {
     name,
     gender,
-    dob,
+    dateOfBirth,
     phoneNumber,
     setPhoneNumber,
     setName,
@@ -19,13 +25,15 @@ const SignUp = () => {
     setDob,
     setUser,
     setIsLogged,
+    structuredPhoneNumber,
+    selectedCountry,
   } = useGlobalContext();
 
   const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     name: "",
     gender: "",
-    dob: "",
+    dateOfBirth: "",
     phoneNumber: "",
   });
 
@@ -33,14 +41,14 @@ const SignUp = () => {
 
   // Set initial form values from context
   useEffect(() => {
-    setForm({ name, gender, dob, phoneNumber });
-  }, [name, gender, dob, phoneNumber]);
+    setForm({ name, gender, dateOfBirth, phoneNumber });
+  }, [name, gender, dateOfBirth, phoneNumber]);
 
   const submit = async () => {
     if (
       form.name === "" ||
       form.gender === "" ||
-      form.dob === "" ||
+      form.dateOfBirth === "" ||
       form.phoneNumber === ""
     ) {
       Alert.alert("Error", "Please fill in all fields");
@@ -48,17 +56,18 @@ const SignUp = () => {
     }
 
     setSubmitting(true);
+
     try {
-      const result = await createUser( // implement createUser function when its time for backend
+      const result = await createUser(
+        // implement createUser function when its time for backend
         form.name,
         form.gender,
-        form.dob,
+        form.dateOfBirth,
         form.phoneNumber
       );
       setUser(result);
       setIsLogged(true);
 
-      
       router.replace("/test");
     } catch (error) {
       Alert.alert("Error", error.message);
@@ -86,41 +95,34 @@ const SignUp = () => {
           <View className="w-full flex-row justify-center items-center gap-[10px] mt-[25px]">
             <View className=" w-[350px] h-[50px] flex-row justify-center items-center border-2 p-2 border-[#D1D4DE] rounded-lg">
               <Text className="text-[20px] text-left  font-pmedium text-secondary w-[100%]  ">
-                 <Text className="font-semibold">{form.name}</Text>
+                <Text className="font-semibold">{form.name}</Text>
               </Text>
             </View>
-           
           </View>
 
           <View className=" w-full flex-row justify-center items-center gap-[10px] mt-[10px]">
             <View className=" w-[200px] h-[50px] flex-row justify-center items-center border-2 p-2 border-[#D1D4DE] rounded-lg">
               <Text className="text-[20px] text-left  font-pmedium text-secondary w-[100%]  ">
-             <Text className="font-semibold">{form.dob}</Text>
+                <Text className="font-semibold">{form.dateOfBirth}</Text>
               </Text>
             </View>
 
             <View className=" w-[140px] h-[50px] flex-row justify-center items-center border-2 p-2 border-[#D1D4DE] rounded-lg ">
               <Text className="text-[20px] text-left  font-pmedium text-secondary w-[100%]  ">
-               <Text className="font-semibold">{form.gender}</Text>
+                <Text className="font-semibold">{form.gender}</Text>
               </Text>
             </View>
-            
           </View>
 
           <View className=" w-full flex-row justify-center items-center gap-[10px] mt-[10px]">
             <View className=" w-[350px] h-[50px] flex-row justify-center items-center border-2 p-2 border-[#D1D4DE] rounded-lg">
               <Text className="text-[20px] text-left  font-pmedium text-secondary w-[100%]  ">
-             <Text className="font-semibold">{form.phoneNumber}</Text>
+                <Text className="font-semibold">{`${selectedCountry.flag}${selectedCountry.code} ${structuredPhoneNumber}`}</Text>
               </Text>
             </View>
-            
           </View>
 
-          
-
-
-
-<CustomButton
+          <CustomButton
             title="Sign Up"
             handlePress={submit}
             isLoading={isSubmitting}

@@ -8,7 +8,7 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 function DOBInput() {
-  const { dob, setDob } = useGlobalContext();
+  const { dateOfBirth, setDob } = useGlobalContext();
   const [date, setDate] = useState(new Date());
 
   const onChange = (event, selectedDate) => {
@@ -44,8 +44,8 @@ function DOBInput() {
             }}
           >
             Selected date:{" "}
-            {dob
-              ? new Date(dob).toLocaleDateString()
+            {dateOfBirth
+              ? new Date(dateOfBirth).toLocaleDateString()
               : "Select your date of birth"}
           </Text> */}
 
@@ -59,14 +59,13 @@ function DOBInput() {
               maximumDate={new Date()}
               minimumDate={new Date(1900, 0, 1)}
               style={{ width: "100%" }}
-    
             />
           </View>
 
           <CustomButton
             title="Continue"
             handlePress={() => {
-              if (dob.trim() === "") {
+              if (dateOfBirth.trim() === "") {
                 Alert.alert("Error", "Please select your date of birth");
                 return;
               }

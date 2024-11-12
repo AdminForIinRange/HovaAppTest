@@ -30,7 +30,7 @@ const Profile = () => {
             title={item.title}
             thumbnail={item.thumbnail}
             video={item.video}
-            creator={item.creator.username}
+            creator={item.creator.name}
             avatar={item.creator.avatar}
           />
         )}
@@ -62,7 +62,7 @@ const Profile = () => {
             </View>
 
             <InfoBox
-              title={user?.username}
+              title={user?.name}
               containerStyles="mt-5"
               titleStyles="text-lg"
             />

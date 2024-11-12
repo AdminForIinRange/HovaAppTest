@@ -31,10 +31,18 @@ const countries = [
 ];
 
 const PhoneInput = () => {
-  const { phoneNumber, setPhoneNumber } = useGlobalContext();
+  const {
+    phoneNumber,
+    setPhoneNumber,
+    selectedCountry,
+    setSelectedCountry,
+    structuredPhoneNumber,
+    setStructuredPhoneNumber,
+  } = useGlobalContext();
+
   const [code, setCode] = useState(["", "", "", ""]);
   const inputRefs = useRef([...Array(4)].map(() => useRef(null)));
-  const [selectedCountry, setSelectedCountry] = useState(countries[0]);
+
   const [isSubmitting, setSubmitting] = useState(false);
   const [modalRejionVisible, setModalPhoneRejionVisible] = useState(false);
   const [modalOPTVisible, setModalOPTVisible] = useState(false);
@@ -95,10 +103,27 @@ const PhoneInput = () => {
   const formatPhoneNumber = (text) => {
     // Remove all non-numeric characters
     const cleaned = text.replace(/\D/g, "");
-    // Format as XXX XXX XXX
-    const match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,3})$/);
+
+    // Format as XXX XXX XXX or similar (group of 3 digits)
+    const match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,4})$/);
+
     if (match) {
-      setPhoneNumber([match[1], match[2], match[3]].filter(Boolean).join(" "));
+      // Combine the parts into a full phone number with the selected country code
+      const fullPhoneNumber = `+${selectedCountry.code}${cleaned}`;
+
+      // Remove spaces for internal storage
+      const fullPhoneWithoutSpaces = fullPhoneNumber.replace(/\s+/g, "");
+
+      // Set the formatted phone number (with spaces) for display
+      setStructuredPhoneNumber(
+        [match[1], match[2], match[3], match[4]].filter(Boolean).join(" ")
+      );
+
+      setPhoneNumber(fullPhoneWithoutSpaces);
+
+      // You can store the clean number without spaces if needed
+
+      console.log("Formatted phone number:", fullPhoneWithoutSpaces);
     }
   };
 
@@ -139,8 +164,8 @@ const PhoneInput = () => {
 
           {/* <FormField
             title="phone number"
-            value={form.username} // switch to phoen number latter on after doing Frontend work
-            handleChangeText={(e) => setForm({ ...form, username: e })}
+            value={form.name} // switch to phoen number latter on after doing Frontend work
+            handleChangeText={(e) => setForm({ ...form, name: e })}
             otherStyles="mt-10"
           /> */}
 
@@ -161,7 +186,7 @@ const PhoneInput = () => {
               className="flex-1 rounded-lg border border-gray-200 px-4 py-3 text-[18px] font-semibold placeholder:text-secondary"
               placeholder="123 456 789"
               keyboardType="numeric"
-              value={phoneNumber}
+              value={structuredPhoneNumber}
               onChangeText={formatPhoneNumber}
               maxLength={11} // 9 digits + 2 spaces
             />
