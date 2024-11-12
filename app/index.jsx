@@ -18,7 +18,7 @@ const Welcome = () => {
   const [verified, setverified] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { loading, isLogged } = useGlobalContext();
+  // const { loading, isLogged } = useGlobalContext();
 
   // if (!loading && isLogged) return <Redirect href="/home" />;
   useEffect(() => {
@@ -29,7 +29,7 @@ const Welcome = () => {
 
   return (
     <SafeAreaView className="bg-[#0162F1] flex-1">
-      <Loader isLoading={loading} />
+      {/* <Loader isLoading={loading} /> */}
 
       <View className="flex-1 justify-center items-center  mb-[200px] px-4">
         <View className="relative mt-5">

@@ -13,14 +13,9 @@ import {
 
 import { images } from "../../constants";
 import { icons } from "../../constants";
-// import useAppwrite from "../../lib/useAppwrite";
-// import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
-
-// import { EmptyState, SearchInput, Trending, VideoCard } from "../../components";
 import { useGlobalContext } from "../../context/GlobalProvider";
-
 const Test = () => {
-  const { name, gender, dateOfBirth, phoneNumber } = useGlobalContext();
+  const { name, gender, phoneNumber } = useGlobalContext();
   return (
     <SafeAreaView className="bg-white h-full">
       <ScrollView>
@@ -50,7 +45,20 @@ const Test = () => {
           </View>
           <View className=" flex-row  justify-center   items-start w-full    px-4 my-4 ">
             <View className="w-full h-[100px] bg-blue-600 rounded-xl">
-              <Text>d</Text>
+            
+            
+            <Text className="text-[16px] font-semibold text-primary  ">
+            Welcome, {gender ? gender : "end"}
+              </Text>
+            </View>
+          </View>
+          <View className=" flex-row  justify-center   items-start w-full    px-4 my-4 ">
+            <View className="w-full h-[100px] bg-blue-600 rounded-xl">
+
+            <Text className="text-[16px] font-semibold text-primary  ">
+            Welcome, {phoneNumber ? phoneNumber : "end"}
+              </Text>
+     
             </View>
           </View>
         </View>

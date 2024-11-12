@@ -16,7 +16,7 @@ import {
 } from "react-native";
 
 import { images } from "../../constants";
-import { createUser } from "../../lib/appwrite";
+import { createUser, getUserData, getCurrentUser } from "../../lib/appwrite";
 import { CustomButton, FormField, Loader } from "../../components";
 import { useGlobalContext } from "../../context/GlobalProvider";
 import { signIn } from "../../lib/appwrite";
@@ -127,8 +127,6 @@ const SignIn = () => {
       return;
     }
 
-    
-
     setModalOPTVisible(true);
   };
 
@@ -138,37 +136,27 @@ const SignIn = () => {
       return;
     }
 
+
+
     try {
-      setSubmitting(true);
+      console.log("Checking for", phoneNumber);
 
-//       const fullPhoneNumber = `+${selectedCountry.code}${phoneNumber}`;
-
-//       // Remove spaces for internal storage
-//       const fullPhoneWithoutSpaces = fullPhoneNumber.replace(/\s+/g, "");
-
-console.log("checking for", phoneNumber);
-
-      await signIn(phoneNumber); //better
-
-      // await signIn(phoneNumber); // for quick testing
-
-      // const result = await getCurrentUser();
-      // setUser(result);
-      // setIsLogged(true); // get it from the global
-
-      Alert.alert("Success", "OTP verified successfully");
-      router.replace("/test");
+      await signIn(phoneNumber); // Use a try-catch in signIn to catch errors
+     
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {
       setModalOPTVisible(false);
-
     }
+
+    // Navigate only if user is logged in successfully
+    router.push("/test");
+
+    setModalOPTVisible(false);
   };
 
   return (
     <SafeAreaView className="bg-white h-full p-2.5 ">
-
       <ScrollView>
         <View
           className="w-full flex  h-full px-4 my-6"

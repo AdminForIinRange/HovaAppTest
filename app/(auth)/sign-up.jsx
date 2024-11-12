@@ -14,6 +14,7 @@ const countries = [
   { code: "+86", flag: "🇨🇳", name: "China" },
 ];
 const SignUp = () => {
+
   const {
     name,
     gender,
