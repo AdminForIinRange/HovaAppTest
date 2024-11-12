@@ -93,7 +93,7 @@ const PhoneInput = () => {
 
     if (match) {
       // Combine the parts into a full phone number with the selected country code
-      const fullPhoneNumber = `+${selectedCountry.code}${cleaned}`;
+      const fullPhoneNumber = `${selectedCountry.code}${cleaned}`;
 
       // Remove spaces for internal storage
       const fullPhoneWithoutSpaces = fullPhoneNumber.replace(/\s+/g, "");

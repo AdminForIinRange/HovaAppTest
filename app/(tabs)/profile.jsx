@@ -9,7 +9,28 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 import { EmptyState, InfoBox, VideoCard } from "../../components";
 import { images } from "../../constants";
 const Profile = () => {
-  const { user, setUser, setIsLogged } = useGlobalContext();
+    const { user, setUser, setIsLogged } = useGlobalContext();
+    const countries = [
+        { code: "+61", flag: "🇦🇺", name: "Australia" },
+        { code: "+1", flag: "🇺🇸", name: "United States" },
+        { code: "+44", flag: "🇬🇧", name: "United Kingdom" },
+        { code: "+64", flag: "🇳🇿", name: "New Zealand" },
+        { code: "+86", flag: "🇨🇳", name: "China" },
+      ];
+
+      const formatPhoneNumber = (phoneNumber) => {
+        return phoneNumber.replace(/(\d{3})(\d{3})(\d{3})$/, "$1 $2 $3");
+      };
+    
+      // Helper function to get country flag and formatted full phone number
+      const getCountryDisplay = (phoneNumber) => {
+        const country = countries.find(({ code }) => phoneNumber.startsWith(code));
+        if (country) {
+          const numberWithoutCode = phoneNumber.slice(country.code.length);
+          return `${country.flag} ${country.code} ${formatPhoneNumber(numberWithoutCode)}`;
+        }
+        return phoneNumber;
+      };
   //   const { data: posts } = useAppwrite(() => getUserPosts(user.$id));
 
   const logout = async () => {
@@ -78,7 +99,7 @@ const Profile = () => {
         <View className=" w-full flex-row justify-center items-center gap-[10px] mt-[10px]">
           <View className=" w-[350px] h-[50px] flex-row justify-center items-center border-2 p-2 border-[#D1D4DE] rounded-lg">
             <Text className="text-[20px] text-left  font-pmedium text-secondary w-[100%]  ">
-              {/* <Text className="font-semibold">{`${selectedCountry.flag}${selectedCountry.code} ${structuredPhoneNumber}`}</Text> */}
+            <Text className="font-semibold">{getCountryDisplay(user?.phone)}</Text>
             </Text>
           </View>
         </View>
