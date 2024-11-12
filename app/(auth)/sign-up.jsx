@@ -49,14 +49,14 @@ const SignUp = () => {
 
     setSubmitting(true);
     try {
-      // const result = await createUser( // implement createUser function when its time for backend
-      //   form.name,
-      //   form.gender,
-      //   form.dob,
-      //   form.phoneNumber
-      // );
-      // setUser(result);
-      // setIsLogged(true);
+      const result = await createUser( // implement createUser function when its time for backend
+        form.name,
+        form.gender,
+        form.dob,
+        form.phoneNumber
+      );
+      setUser(result);
+      setIsLogged(true);
 
       
       router.push("/test");
@@ -93,13 +93,13 @@ const SignUp = () => {
           </View>
 
           <View className=" w-full flex-row justify-center items-center gap-[10px] mt-[10px]">
-            <View className=" w-[170px] h-[50px] flex-row justify-center items-center border-2 p-2 border-[#D1D4DE] rounded-lg">
+            <View className=" w-[200px] h-[50px] flex-row justify-center items-center border-2 p-2 border-[#D1D4DE] rounded-lg">
               <Text className="text-[20px] text-left  font-pmedium text-secondary w-[100%]  ">
              <Text className="font-semibold">{form.dob}</Text>
               </Text>
             </View>
 
-            <View className=" w-[170px] h-[50px] flex-row justify-center items-center border-2 p-2 border-[#D1D4DE] rounded-lg ">
+            <View className=" w-[140px] h-[50px] flex-row justify-center items-center border-2 p-2 border-[#D1D4DE] rounded-lg ">
               <Text className="text-[20px] text-left  font-pmedium text-secondary w-[100%]  ">
                <Text className="font-semibold">{form.gender}</Text>
               </Text>

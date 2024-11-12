@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-import { getCurrentUser } from "../lib/appwrite";
+// import { getCurrentUser } from "../lib/appwrite";
 
 const GlobalContext = createContext();
 export const useGlobalContext = () => useContext(GlobalContext);
@@ -8,30 +8,30 @@ export const useGlobalContext = () => useContext(GlobalContext);
 const GlobalProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState(false);
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false); // initially set to false but it should be true
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [gender, setGender] = useState("");
   const [dob, setDob] = useState("");
 
-  useEffect(() => {
-    getCurrentUser()
-      .then((res) => {
-        if (res) {
-          setIsLogged(true);
-          setUser(res);
-        } else {
-          setIsLogged(false);
-          setUser(null);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   getCurrentUser()
+  //     .then((res) => {
+  //       if (res) {
+  //         setIsLogged(true);
+  //         setUser(res);
+  //       } else {
+  //         setIsLogged(false);
+  //         setUser(null);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // }, []);
 
   useEffect(() => {
     console.log("Name:", name);

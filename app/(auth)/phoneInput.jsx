@@ -116,7 +116,7 @@ const PhoneInput = () => {
       return;
     }
     setModalOPTVisible(false);
-    Alert.alert("Success", "User signed up successfully");
+    Alert.alert("Success", "OTP verified successfully");
     router.push("/sign-up");
   };
 

@@ -5,28 +5,28 @@ import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
 
 import { images } from "../../constants";
 import { CustomButton, FormField } from "../../components";
-import { getCurrentUser, signIn } from "../../lib/appwrite";
+import { signIn } from "../../lib/appwrite";
+// import { getCurrentUser, signIn } from "../../lib/appwrite";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignIn = () => {
-  const { setUser, setIsLogged } = useGlobalContext();
+  const { setUser, setIsLogged, ph } = useGlobalContext();
   const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
-    email: "",
-    password: "",
+    phoneNumber: "",
   });
 
   const submit = async () => {
-    if (form.email === "" || form.password === "") {
+    if (form.phoneNumber === "") {
       Alert.alert("Error", "Please fill in all fields");
     }
 
     setSubmitting(true);
 
     try {
-      await signIn(form.email, form.password);
-      const result = await getCurrentUser();
-      setUser(result);
+      await signIn(form.phoneNumber);
+      // const result = await getCurrentUser();
+      // setUser(result);
       setIsLogged(true);
 
       Alert.alert("Success", "User signed in successfully");
@@ -51,22 +51,10 @@ const SignIn = () => {
             Enter your phone number
           </Text>
 
-          <Text className="text-[24px] font-semibold text-secondary   font-psemibold">
-            Enter your phone number
-          </Text>
-
-          <FormField
-            title="Email"
-            value={form.email}
-            handleChangeText={(e) => setForm({ ...form, email: e })}
-            otherStyles="mt-7"
-            keyboardType="email-address"
-          />
-
           <FormField
             title="Password"
-            value={form.password}
-            handleChangeText={(e) => setForm({ ...form, password: e })}
+            value={form.phoneNumber}
+            handleChangeText={(e) => setForm({ ...form, phoneNumber: e })}
             otherStyles="mt-7"
           />
 
