@@ -25,7 +25,7 @@ const Scan = () => {
     <SafeAreaView className="bg-white h-full">
       <ScrollView>
         <Text>
-          Cam function
+        Cam function, but a lower version, something that fits in with react-native-screens@3.29.0 or something
         </Text>
       
       </ScrollView>

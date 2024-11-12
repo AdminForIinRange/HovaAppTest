@@ -34,8 +34,8 @@ const SignUp = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
     name: "",
-    gender: "",
     dateOfBirth: "",
+    gender: "",
     phoneNumber: "",
   });
 
@@ -43,14 +43,14 @@ const SignUp = () => {
 
   // Set initial form values from context
   useEffect(() => {
-    setForm({ name, gender, dateOfBirth, phoneNumber });
+    setForm({ name,dateOfBirth, gender,  phoneNumber });
   }, [name, gender, dateOfBirth, phoneNumber]);
 
   const submit = async () => {
     if (
       form.name === "" ||
-      form.gender === "" ||
       form.dateOfBirth === "" ||
+      form.gender === "" ||
       form.phoneNumber === ""
     ) {
       Alert.alert("Error", "Please fill in all fields");
@@ -63,8 +63,8 @@ const SignUp = () => {
       const result = await createUser(
         // implement createUser function when its time for backend
         form.name,
-        form.gender,
         form.dateOfBirth,
+        form.gender,
         form.phoneNumber
       );
       setUser(result);

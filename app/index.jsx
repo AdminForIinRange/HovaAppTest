@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Link, router } from "expo-router";
+import { Link, router,Redirect } from "expo-router";
 import {
   View,
   Text,
@@ -10,7 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useEffect, useRef, useState } from "react";
 import { CustomButton } from "../components";
 import { useFocusEffect } from '@react-navigation/native';  // Import the hook
-React
+
 const Welcome = () => {
   const [show, setShow] = useState(false);
   const [clickLogin, setclickLogin] = useState(false);
@@ -43,6 +43,9 @@ const Welcome = () => {
       setShow(true);  // Show the modal again when the screen is focused
     }, [])
   );
+
+  // if (true) return <Redirect href="/profile" />;
+
 
   return (
     <SafeAreaView className="bg-[#0162F1] flex-1">
