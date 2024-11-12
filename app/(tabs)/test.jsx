@@ -15,7 +15,7 @@ import { images } from "../../constants";
 import { icons } from "../../constants";
 import { useGlobalContext } from "../../context/GlobalProvider";
 const Test = () => {
-  const { name, gender, phoneNumber } = useGlobalContext();
+  const { user } = useGlobalContext();
   return (
     <SafeAreaView className="bg-white h-full">
       <ScrollView>
@@ -32,7 +32,7 @@ const Test = () => {
                 className="w-[45px] h-[45px] rounded-full"
               />
               <Text className="text-[16px] font-semibold text-primary  ">
-                Welcome, {name ? name : "User"}
+              {user?.username}
               </Text>
             </View>
             <View className="flex-row items-center justify-end w-[50%] gap-[10px]  ">
@@ -48,7 +48,7 @@ const Test = () => {
             
             
             <Text className="text-[16px] font-semibold text-primary  ">
-            Welcome, {gender ? gender : "end"}
+            {/* Welcome, {gender ? gender : "end"} */}
               </Text>
             </View>
           </View>
@@ -56,7 +56,7 @@ const Test = () => {
             <View className="w-full h-[100px] bg-blue-600 rounded-xl">
 
             <Text className="text-[16px] font-semibold text-primary  ">
-            Welcome, {phoneNumber ? phoneNumber : "end"}
+            {/* Welcome, {phoneNumber ? phoneNumber : "end"} */}
               </Text>
      
             </View>

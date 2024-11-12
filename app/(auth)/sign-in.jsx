@@ -136,18 +136,11 @@ const SignIn = () => {
       return;
     }
 
+    const user = await signIn(phoneNumber); // Use a try-catch in signIn to catch errors
 
-
-    try {
-      console.log("Checking for", phoneNumber);
-
-      await signIn(phoneNumber); // Use a try-catch in signIn to catch errors
-     
-    } catch (error) {
-      Alert.alert("Error", error.message);
-    } finally {
-      setModalOPTVisible(false);
-    }
+    setUser(user);
+    setIsLogged(true); // Set logged-in state
+    Alert.alert("Success", "OTP verified successfully");
 
     // Navigate only if user is logged in successfully
     router.push("/test");
