@@ -59,7 +59,7 @@ const SignUp = () => {
       setIsLogged(true);
 
       
-      router.push("/test");
+      router.replace("/test");
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {
