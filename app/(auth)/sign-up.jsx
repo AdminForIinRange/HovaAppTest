@@ -4,8 +4,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, ScrollView, Dimensions, Alert } from "react-native";
 
 import { createUser } from "../../lib/appwrite";
-import { CustomButton } from "../../components";
+import { CustomButton, Loader } from "../../components";
 import { useGlobalContext } from "../../context/GlobalProvider";
+
 const countries = [
   { code: "+61", flag: "🇦🇺", name: "Australia" },
   { code: "+1", flag: "🇺🇸", name: "United States" },
@@ -68,6 +69,7 @@ const SignUp = () => {
       );
       setUser(result);
       setIsLogged(true);
+      setSubmitting(false);
 
       router.replace("/test");
     } catch (error) {
@@ -80,12 +82,14 @@ const SignUp = () => {
   return (
     <SafeAreaView className="bg-white h-full p-2.5">
       <ScrollView>
+      <Loader isLoading={isSubmitting} />
         <View
           className="w-full flex h-full px-4 my-6"
           style={{
             minHeight: Dimensions.get("window").height - 100,
           }}
         >
+          
           <Text className="text-[36px] font-semibold text-primary  ">
             Are you sure?
           </Text>
@@ -123,14 +127,17 @@ const SignUp = () => {
             </View>
           </View>
 
+
           <CustomButton
             title="Sign Up"
             handlePress={submit}
             isLoading={isSubmitting}
-            containerStyles="w-full mt-8"
+            containerStyles="w-full mt-[95px]"
             textColor={"white"}
             buttonBackgroundColor={"#0162F1"}
           />
+
+          
         </View>
       </ScrollView>
     </SafeAreaView>

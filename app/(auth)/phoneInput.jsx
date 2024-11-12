@@ -241,7 +241,7 @@ const PhoneInput = () => {
           <CustomButton
             title="continue"
             handlePress={submit} // ON SUMBIT OPEN A MODAL WITH VERFIY CODE, THIS IMPNETION IS WAY BETTER FOR UX AND BACKEND
-            containerStyles="mt-[100px]"
+            containerStyles="mt-[150px]"
             isLoading={isSubmitting}
             textColor="white"
             buttonBackgroundColor="#0162F1"
@@ -307,7 +307,7 @@ const PhoneInput = () => {
                 <CustomButton
                   title="Continue"
                   handlePress={submitOPT}
-                  containerStyles="mt-[100px]"
+                  containerStyles="mt-[150px]"
                   isLoading={isSubmitting}
                   textColor="white"
                   buttonBackgroundColor="#0162F1"

@@ -14,7 +14,7 @@ import {
   FlatList,
   Animated,
 } from "react-native";
-
+import { StatusBar } from "expo-status-bar";
 import { images } from "../../constants";
 import { createUser, getUserData, getCurrentUser } from "../../lib/appwrite";
 import { CustomButton, FormField, Loader } from "../../components";
@@ -131,6 +131,8 @@ const SignIn = () => {
   };
 
   const submitOPT = async () => {
+    setSubmitting(true);
+
     if (code === "") {
       Alert.alert("Error", "Please enter your OTP");
       return;
@@ -138,18 +140,34 @@ const SignIn = () => {
 
     const user = await signIn(phoneNumber); // Use a try-catch in signIn to catch errors
 
-    setUser(user);
-    setIsLogged(true); // Set logged-in state
-    Alert.alert("Success", "OTP verified successfully");
+    if (user) {
+
+      setUser(user);
+      setIsLogged(true);
+      setModalOPTVisible(false);
+      setSubmitting(false);
+      
+
+
+      Alert.alert("Success", "OTP verified successfully");
+      router.push("/test");
+
+    } else {
+      Alert.alert("Error", "Auth failed");
+      setSubmitting(false);
+    }
+
+   // Set logged-in state
+    
 
     // Navigate only if user is logged in successfully
-    router.push("/test");
 
-    setModalOPTVisible(false);
   };
 
   return (
     <SafeAreaView className="bg-white h-full p-2.5 ">
+   
+
       <ScrollView>
         <View
           className="w-full flex  h-full px-4 my-6"
@@ -256,6 +274,8 @@ const SignIn = () => {
             onRequestClose={() => setModalOPTVisible(false)}
           >
             <View className="flex-1 ">
+            <Loader isLoading={isSubmitting} />
+
               <Animated.View
                 className="h-full w-full bg-white border-gray-300 border-2 p-4"
                 style={{
@@ -307,6 +327,7 @@ const SignIn = () => {
                   ))}
                 </View>
 
+             
                 <CustomButton
                   title="Continue"
                   handlePress={submitOPT}

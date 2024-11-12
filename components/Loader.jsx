@@ -8,14 +8,14 @@ const Loader = ({ isLoading }) => {
 
   return (
     <View
-      className="absolute flex justify-center items-center w-full h-full bg-primary/60 z-10"
+      className="absolute z-50 flex justify-center items-center w-full h-full bottom-[100px] "
       style={{
         height: screenHeight,
       }}
     >
       <ActivityIndicator
         animating={isLoading}
-        color="#fff"
+        color="#0162F1"
         size={osName === "ios" ? "large" : 50}
       />
     </View>
