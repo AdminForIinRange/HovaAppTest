@@ -19,7 +19,7 @@ import { images } from "../../constants";
 import { createUser } from "../../lib/appwrite";
 import { CustomButton, FormField, Loader } from "../../components";
 import { useGlobalContext } from "../../context/GlobalProvider";
-import { signIn, validatePhoneNumber } from "../../lib/appwrite";
+import { signIn } from "../../lib/appwrite";
 import { icons } from "../../constants";
 import { isLoading } from "expo-font";
 const countries = [
@@ -41,6 +41,8 @@ const SignIn = () => {
   const [modalOPTVisible, setModalOPTVisible] = useState(false);
 
   const [modalDOBVisible, setModalDOBVisible] = useState(false);
+
+  const [structuredPhoneNumber, setStructuredPhoneNumber] = useState("");
 
   const slideAnim = useRef(new Animated.Value(-100)).current;
 
@@ -96,24 +98,36 @@ const SignIn = () => {
   const formatPhoneNumber = (text) => {
     // Remove all non-numeric characters
     const cleaned = text.replace(/\D/g, "");
-    // Format as XXX XXX XXX
-    const match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,3})$/);
+
+    // Format as XXX XXX XXX or similar (group of 3 digits)
+    const match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,4})$/);
+
     if (match) {
-      setPhoneNumber([match[1], match[2], match[3]].filter(Boolean).join(" "));
+      // Combine the parts into a full phone number with the selected country code
+      const fullPhoneNumber = `+${selectedCountry.code}${cleaned}`;
+
+      // Remove spaces for internal storage
+      const fullPhoneWithoutSpaces = fullPhoneNumber.replace(/\s+/g, "");
+
+      // Set the formatted phone number (with spaces) for display
+      setStructuredPhoneNumber(
+        [match[1], match[2], match[3], match[4]].filter(Boolean).join(" ")
+      );
+
+      setPhoneNumber(fullPhoneWithoutSpaces);
+
+      // You can store the clean number without spaces if needed
+
+      console.log("Formatted phone number:", fullPhoneWithoutSpaces);
     }
   };
-
   const submit = async () => {
     if (phoneNumber.trim() === "") {
       Alert.alert("Error", "Please enter your Phone Number");
       return;
     }
 
-    try {
-      validatePhoneNumber(phoneNumber);
-    } catch (error) {
-      Alert.alert("Error", error.message);
-    }
+    
 
     setModalOPTVisible(true);
   };
@@ -127,12 +141,14 @@ const SignIn = () => {
     try {
       setSubmitting(true);
 
-      const fullPhoneNumber = `+${selectedCountry.code}${phoneNumber}`;
+//       const fullPhoneNumber = `+${selectedCountry.code}${phoneNumber}`;
 
-      // Remove spaces for internal storage
-      const fullPhoneWithoutSpaces = fullPhoneNumber.replace(/\s+/g, "");
+//       // Remove spaces for internal storage
+//       const fullPhoneWithoutSpaces = fullPhoneNumber.replace(/\s+/g, "");
 
-      await signIn(fullPhoneWithoutSpaces); //better
+console.log("checking for", phoneNumber);
+
+      await signIn(phoneNumber); //better
 
       // await signIn(phoneNumber); // for quick testing
 
@@ -146,13 +162,13 @@ const SignIn = () => {
       Alert.alert("Error", error.message);
     } finally {
       setModalOPTVisible(false);
-      setSubmitting(false);
+
     }
   };
 
   return (
     <SafeAreaView className="bg-white h-full p-2.5 ">
-      <Loader isLoading={isSubmitting} />
+
       <ScrollView>
         <View
           className="w-full flex  h-full px-4 my-6"
@@ -192,7 +208,7 @@ const SignIn = () => {
               className="flex-1 rounded-lg border border-gray-200 px-4 py-3 text-[18px] font-semibold placeholder:text-secondary"
               placeholder="123 456 789"
               keyboardType="numeric"
-              value={phoneNumber}
+              value={structuredPhoneNumber}
               onChangeText={formatPhoneNumber}
               maxLength={11} // 9 digits + 2 spaces
             />
