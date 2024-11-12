@@ -7,9 +7,10 @@ import {
   Animated,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CustomButton } from "../components";
-
+import { useFocusEffect } from '@react-navigation/native';  // Import the hook
+React
 const Welcome = () => {
   const [show, setShow] = useState(false);
   const [clickLogin, setclickLogin] = useState(false);
@@ -36,6 +37,13 @@ const Welcome = () => {
     }).start();
   }, []);
 
+  // Trigger modal visibility when screen is focused
+  useFocusEffect(
+    React.useCallback(() => {
+      setShow(true);  // Show the modal again when the screen is focused
+    }, [])
+  );
+
   return (
     <SafeAreaView className="bg-[#0162F1] flex-1">
       <View className="flex-1 justify-center items-center mb-[250px] px-4">
@@ -58,7 +66,7 @@ const Welcome = () => {
         onRequestClose={() => setShow(false)}
       >
         <View className="flex-1">
-          <View className="mt-auto h-2/4 rounded-t-[50px] bg-white">
+          <View className="mt-auto h-2/4 rounded-t-[40px] bg-white">
             <View className="flex-row mt-[45px] items-center justify-center">
               <View>
                 <Text className="text-[36px] font-psemibold text-[#414141] text-center">
