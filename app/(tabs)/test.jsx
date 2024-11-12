@@ -14,9 +14,15 @@ import {
 import { images } from "../../constants";
 import { icons } from "../../constants";
 import { useGlobalContext } from "../../context/GlobalProvider";
+import { router } from "expo-router";
 const Test = () => {
   const { user, setLoading } = useGlobalContext();
 
+  useEffect(() => {
+    if (user == null) {
+      router.replace("/(auth)/sign-in");
+    }
+  }, []);
 
   return (
     <SafeAreaView className="bg-white h-full">
@@ -34,7 +40,7 @@ const Test = () => {
                 className="w-[45px] h-[45px] rounded-full"
               />
               <Text className="text-[16px] font-semibold text-primary  ">
-              Wellcome {user?.username}
+                Wellcome {user?.username}
               </Text>
             </View>
             <View className="flex-row items-center justify-end w-[50%] gap-[10px]  ">
@@ -47,20 +53,16 @@ const Test = () => {
           </View>
           <View className=" flex-row  justify-center   items-start w-full    px-4 my-4 ">
             <View className="w-full h-[100px] bg-blue-600 rounded-xl">
-            
-            
-            <Text className="text-[16px] font-semibold text-primary  ">
-            {/* Welcome, {gender ? gender : "end"} */}
+              <Text className="text-[16px] font-semibold text-primary  ">
+                {/* Welcome, {gender ? gender : "end"} */}
               </Text>
             </View>
           </View>
           <View className=" flex-row  justify-center   items-start w-full    px-4 my-4 ">
             <View className="w-full h-[100px] bg-blue-600 rounded-xl">
-
-            <Text className="text-[16px] font-semibold text-primary  ">
-            {/* Welcome, {phoneNumber ? phoneNumber : "end"} */}
+              <Text className="text-[16px] font-semibold text-primary  ">
+                {/* Welcome, {phoneNumber ? phoneNumber : "end"} */}
               </Text>
-     
             </View>
           </View>
         </View>
