@@ -47,25 +47,9 @@ const PhoneInput = () => {
   const [modalRejionVisible, setModalPhoneRejionVisible] = useState(false);
   const [modalOPTVisible, setModalOPTVisible] = useState(false);
 
-  const [modalDOBVisible, setModalDOBVisible] = useState(false);
-
+ 
   const slideAnim = useRef(new Animated.Value(-100)).current;
 
-  useEffect(() => {
-    if (modalDOBVisible) {
-      Animated.timing(slideAnim, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      Animated.timing(slideAnim, {
-        toValue: 1000,
-        duration: 500,
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [modalDOBVisible]);
 
   useEffect(() => {
     if (modalOPTVisible) {
