@@ -23,16 +23,16 @@ const Welcome = () => {
 
   const fadeAnim = useRef(new Animated.Value(0)).current;  // Start with opacity 0
 
-  // Show the modal after a delay
-  useEffect(() => {
-    setTimeout(() => setShow(true), 1000);
-  }, []);
+  // // Show the modal after a delay
+  // useEffect(() => {
+  //   setTimeout(() => setShow(true), 4000);
+  // }, []);
 
   // Fade in effect for the Hova text
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,  // End opacity is 1
-      duration: 500,  // Fade duration
+      duration: 1000,  // Fade duration
       useNativeDriver: true,  // Optimize performance
     }).start();
   }, []);
@@ -40,7 +40,7 @@ const Welcome = () => {
   // Trigger modal visibility when screen is focused
   useFocusEffect(
     React.useCallback(() => {
-      setShow(true);  // Show the modal again when the screen is focused
+      setTimeout(() => setShow(true), 1500);  // Show the modal again when the screen is focused
     }, [])
   );
 
