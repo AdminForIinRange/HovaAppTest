@@ -39,7 +39,7 @@ const SignIn = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   const [modalRejionVisible, setModalPhoneRejionVisible] = useState(false);
   const [modalOPTVisible, setModalOPTVisible] = useState(false);
-
+  const [errorCode, seErrorCode] = useState("");
   const [modalDOBVisible, setModalDOBVisible] = useState(false);
 
   const [structuredPhoneNumber, setStructuredPhoneNumber] = useState("");
@@ -122,59 +122,65 @@ const SignIn = () => {
     }
   };
   const submit = async () => {
-    if (phoneNumber.trim() === "") {
-      Alert.alert("Error", "Please enter your Phone Number");
-      return;
-    }
-
-    setModalOPTVisible(true);
-  };
-
-  const submitOPT = async () => {
     setSubmitting(true);
-
-    if (code === "") {
-      Alert.alert("Error", "Please enter your OTP");
+    seErrorCode(null);
+    if (phoneNumber.trim() === "") {
+      seErrorCode("Please enter a phone number");
+      setSubmitting(false); // Alert.alert("Error", "Please enter your Phone Number");
+      return;
+    } // Step 2: Manual phone number validation
+    // Regex to allow 10-15 digits, optionally with a leading "+" sign for international numbers
+    const phoneNumberRegex = /^[+]?[0-9]{10,15}$/;
+    if (!phoneNumberRegex.test(phoneNumber.trim())) {
+      seErrorCode("Please enter a valid phone number");
+      setSubmitting(false) // Alert.alert(
+      //   "Error",
+      //   "Please enter a valid phone number.."
+      // );
+      return;
+    } // Step 3: Optional check for specific characters (e.g., spaces, alphabets, etc.)
+    const containsInvalidChars = /[^0-9+\-\s]/.test(phoneNumber);
+    if (containsInvalidChars) {
+      seErrorCode("Phone number contains invalid characters");
+      setSubmitting(false) // Alert.alert("Error", "Phone number contains invalid characters.");
+      return;
+    } // Step 4: Check if the phone number is not too short or too long
+    if (phoneNumber.length < 10 || phoneNumber.length > 15) {
+      seErrorCode("Phone number must be between 10-15 digits long");
+      setSubmitting(false) // Alert.alert(
+      //   "Error",
+      //   "Phone number must be between 10 and 15 digits long."
+      // );
       return;
     }
-
     const user = await signIn(phoneNumber); // Use a try-catch in signIn to catch errors
-
     if (user) {
-
+      setSubmitting(true);
       setUser(user);
       setIsLogged(true);
       setModalOPTVisible(false);
       setSubmitting(false);
-      
-
-
-      Alert.alert("Success", "OTP verified successfully");
+      // Alert.alert("Success", "OTP verified successfully");
       router.push("/test");
-
     } else {
-      Alert.alert("Error", "Auth failed");
+      seErrorCode("No user found with this phone number.");
+      // Alert.alert("Error", "Auth failed");
       setSubmitting(false);
-    }
-
-   // Set logged-in state
-    
-
-    // Navigate only if user is logged in successfully
-
+      return;
+    } // setModalOPTVisible(true);
   };
 
   return (
     <SafeAreaView className="bg-white h-full p-2.5 ">
-   
-
       <ScrollView>
+      <Loader isLoading={isSubmitting}   />
         <View
           className="w-full flex  h-full px-4 my-6"
           style={{
             minHeight: Dimensions.get("window").height - 100,
           }}
         >
+              
           <Text className="text-[36px] font-semibold text-primary  ">
             Enter your phone number
           </Text>
@@ -212,6 +218,12 @@ const SignIn = () => {
               maxLength={11} // 9 digits + 2 spaces
             />
           </View>
+
+  
+            <View className={` flex-col w-full h-[45px] items-center justify-center bg-red-100 font-pextrabold rounded-xl mt-[10] ${!errorCode ? "hidden" : null} `}>
+              <Text className="font-semibold text-red-500 ">{errorCode}</Text>
+              </View>
+  
 
           <Modal
             animationType="slide"
@@ -267,8 +279,8 @@ const SignIn = () => {
             textColor="white"
             buttonBackgroundColor="#0162F1"
           />
-
-          <Modal
+          
+          {/* <Modal
             transparent={true}
             visible={modalOPTVisible}
             onRequestClose={() => setModalOPTVisible(false)}
@@ -338,7 +350,7 @@ const SignIn = () => {
                 />
               </Animated.View>
             </View>
-          </Modal>
+          </Modal> */}
 
           {/* <View className="flex justify-center pt-5 flex-row gap-2">
             <Text className="text-[16px] text-secondary font-pregular">

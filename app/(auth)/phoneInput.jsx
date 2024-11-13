@@ -116,18 +116,21 @@ const PhoneInput = () => {
       Alert.alert("Error", "Please enter your Phone Number");
       return;
     }
-    setModalOPTVisible(true);
-  };
-
-  const submitOPT = async () => {
-    if (code === "") {
-      Alert.alert("Error", "Please enter your OTP");
-      return;
-    }
-    setModalOPTVisible(false);
+ 
     Alert.alert("Success", "OTP verified successfully");
     router.push("/sign-up");
+    // setModalOPTVisible(true);
   };
+
+  // const submitOPT = async () => {
+  //   if (code === "") {
+  //     Alert.alert("Error", "Please enter your OTP");
+  //     return;
+  //   }
+  //   setModalOPTVisible(false);
+  //   Alert.alert("Success", "OTP verified successfully");
+  //   router.push("/sign-up");
+  // };
 
   return (
     <SafeAreaView className="bg-white h-full p-2.5 ">
@@ -231,7 +234,7 @@ const PhoneInput = () => {
             buttonBackgroundColor="#0162F1"
           />
 
-          <Modal
+          {/* <Modal
             transparent={true}
             visible={modalOPTVisible}
             onRequestClose={() => setModalOPTVisible(false)}
@@ -298,7 +301,7 @@ const PhoneInput = () => {
                 />
               </Animated.View>
             </View>
-          </Modal>
+          </Modal> */}
 
           {/* <View className="flex justify-center pt-5 flex-row gap-2">
             <Text className="text-[16px] text-secondary font-pregular">
