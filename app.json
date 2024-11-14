@@ -12,10 +12,13 @@
       "backgroundColor": "#ffffff"
     },
     "scheme": "hova",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "package": "com.hova.testApp"
+      "package": "com.hova.testApp",
+      "bundleIdentifier": "com.hova.testApp"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,6 +30,17 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-router", "expo-font"]
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "502e2aa8-28ee-47d5-9cd5-68af5763eff0"
+      }
+    }
   }
 }
