@@ -38,7 +38,7 @@ const SignIn = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   const [modalRejionVisible, setModalPhoneRejionVisible] = useState(false);
   const [modalOPTVisible, setModalOPTVisible] = useState(false);
-  const [errorCode, seErrorCode] = useState("");
+  const [errorCode, setErrorCode] = useState("");
   const [modalDOBVisible, setModalDOBVisible] = useState(false);
   const [structuredPhoneNumber, setStructuredPhoneNumber] = useState("");
   const slideAnim = useRef(new Animated.Value(-100)).current;
@@ -106,10 +106,10 @@ const SignIn = () => {
     }
   };
   const submit = async () => {
-    seErrorCode(null);
-    
+    setErrorCode(null);
+   
     if (phoneNumber.trim() === "") {
-      seErrorCode("Please enter your Phone Number");
+      setErrorCode("Please enter your Phone Number");
       // Alert.alert("Error", "Please enter your Phone Number");
       return;
     }
@@ -117,7 +117,7 @@ const SignIn = () => {
     // Regex to allow 10-15 digits, optionally with a leading "+" sign for international numbers
     const phoneNumberRegex = /^[+]?[0-9]{10,15}$/;
     if (!phoneNumberRegex.test(phoneNumber.trim())) {
-      seErrorCode(
+      setErrorCode(
         "Please enter a valid phone number."
       );
       // Alert.alert(
@@ -129,13 +129,13 @@ const SignIn = () => {
     // Step 3: Optional check for specific characters (e.g., spaces, alphabets, etc.)
     const containsInvalidChars = /[^0-9+\-\s]/.test(phoneNumber);
     if (containsInvalidChars) {
-      seErrorCode("hone number contains invalid characters.");
+      setErrorCode("hone number contains invalid characters.");
       // Alert.alert("Error", "Phone number contains invalid characters.");
       return;
     }
     // Step 4: Check if the phone number is not too short or too long
     if (phoneNumber.length < 10 || phoneNumber.length > 15) {
-      seErrorCode("Phone number must be between 10-15 digits long.");
+      setErrorCode("Phone number must be between 10-15 digits long.");
       // Alert.alert(
       //   "Error",
       //   "Phone number must be between 10 and 15 digits long."
@@ -153,7 +153,7 @@ const SignIn = () => {
       Alert.alert("Success", "OTP verified successfully");
       router.push("/test");
     } else {
-      seErrorCode("Auth failed")
+      setErrorCode("Auth failed")
       Alert.alert("Error", "Auth failed");
       setSubmitting(false);
       return;
@@ -172,7 +172,7 @@ const SignIn = () => {
   //     setIsLogged(true);
   //     setModalOPTVisible(false);
   //     setSubmitting(false);
-      
+     
   //     Alert.alert("Success", "OTP verified successfully");
   //     router.push("/test");
   //   } else {
@@ -180,7 +180,7 @@ const SignIn = () => {
   //     setSubmitting(false);
   //   }
   //  // Set logged-in state
-    
+   
   //   // Navigate only if user is logged in successfully
   // };
   return (

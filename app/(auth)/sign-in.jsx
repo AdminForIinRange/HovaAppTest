@@ -39,7 +39,7 @@ const SignIn = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   const [modalRejionVisible, setModalPhoneRejionVisible] = useState(false);
   const [modalOPTVisible, setModalOPTVisible] = useState(false);
-  const [errorCode, seErrorCode] = useState("");
+  const [errorCode, setErrorCode] = useState("");
   const [modalDOBVisible, setModalDOBVisible] = useState(false);
 
   const [structuredPhoneNumber, setStructuredPhoneNumber] = useState("");
@@ -123,17 +123,17 @@ const SignIn = () => {
   };
   const submit = async () => {
     setSubmitting(true);
-    seErrorCode(null);
+    setErrorCode(null);
     if (phoneNumber.trim() === "") {
-      seErrorCode("Please enter a phone number");
+      setErrorCode("Please enter a phone number");
       setSubmitting(false); // Alert.alert("Error", "Please enter your Phone Number");
       return;
     } // Step 2: Manual phone number validation
     // Regex to allow 10-15 digits, optionally with a leading "+" sign for international numbers
     const phoneNumberRegex = /^[+]?[0-9]{10,15}$/;
     if (!phoneNumberRegex.test(phoneNumber.trim())) {
-      seErrorCode("Please enter a valid phone number");
-      setSubmitting(false) // Alert.alert(
+      setErrorCode("Please enter a valid phone number");
+      setSubmitting(false); // Alert.alert(
       //   "Error",
       //   "Please enter a valid phone number.."
       // );
@@ -141,13 +141,13 @@ const SignIn = () => {
     } // Step 3: Optional check for specific characters (e.g., spaces, alphabets, etc.)
     const containsInvalidChars = /[^0-9+\-\s]/.test(phoneNumber);
     if (containsInvalidChars) {
-      seErrorCode("Phone number contains invalid characters");
-      setSubmitting(false) // Alert.alert("Error", "Phone number contains invalid characters.");
+      setErrorCode("Phone number contains invalid characters");
+      setSubmitting(false); // Alert.alert("Error", "Phone number contains invalid characters.");
       return;
     } // Step 4: Check if the phone number is not too short or too long
-    if (phoneNumber.length < 10 || phoneNumber.length > 15) {
-      seErrorCode("Phone number must be between 10-15 digits long");
-      setSubmitting(false) // Alert.alert(
+    if (phoneNumber.length < 12 || phoneNumber.length > 12) {
+      setErrorCode("Phone number must be between 9 digits long");
+      setSubmitting(false); // Alert.alert(
       //   "Error",
       //   "Phone number must be between 10 and 15 digits long."
       // );
@@ -163,7 +163,7 @@ const SignIn = () => {
       // Alert.alert("Success", "OTP verified successfully");
       router.push("/test");
     } else {
-      seErrorCode("No user found with this phone number.");
+      setErrorCode("No user found with this phone number.");
       // Alert.alert("Error", "Auth failed");
       setSubmitting(false);
       return;
@@ -173,14 +173,13 @@ const SignIn = () => {
   return (
     <SafeAreaView className="bg-white h-full p-2.5 ">
       <ScrollView>
-      <Loader isLoading={isSubmitting}   />
+        <Loader isLoading={isSubmitting} />
         <View
           className="w-full flex  h-full px-4 my-6"
           style={{
             minHeight: Dimensions.get("window").height - 100,
           }}
         >
-              
           <Text className="text-[36px] font-semibold text-primary  ">
             Enter your phone number
           </Text>
@@ -210,7 +209,7 @@ const SignIn = () => {
             </Pressable>
 
             <TextInput
-              className="flex-1 rounded-lg border border-gray-200 px-4 py-3 text-[18px] font-semibold placeholder:text-secondary"
+              className="flex-1 rounded-lg border border-gray-200 px-4 py-3 text-[18px] font-semibold placeholder:text-[#7B7B8B] font-pmedium focus:border-secondary"
               placeholder="123 456 789"
               keyboardType="numeric"
               value={structuredPhoneNumber}
@@ -219,11 +218,11 @@ const SignIn = () => {
             />
           </View>
 
-  
-            <View className={` flex-col w-full h-[45px] items-center justify-center bg-red-100 font-pextrabold rounded-xl mt-[10] ${!errorCode ? "hidden" : null} `}>
-              <Text className="font-semibold text-red-500 ">{errorCode}</Text>
-              </View>
-  
+          <View
+            className={` flex-col w-full h-[45px] items-center justify-center bg-red-100 font-pextrabold rounded-xl mt-[10] ${!errorCode ? "hidden" : null} `}
+          >
+            <Text className="font-semibold text-red-500 ">{errorCode}</Text>
+          </View>
 
           <Modal
             animationType="slide"
@@ -279,7 +278,7 @@ const SignIn = () => {
             textColor="white"
             buttonBackgroundColor="#0162F1"
           />
-          
+
           {/* <Modal
             transparent={true}
             visible={modalOPTVisible}
