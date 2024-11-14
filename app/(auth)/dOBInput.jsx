@@ -10,11 +10,34 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 function DOBInput() {
   const { dateOfBirth, setDob } = useGlobalContext();
   const [date, setDate] = useState(new Date());
+  const [errorCode, setErrorCode] = useState("");
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
-    setDob(currentDate.toDateString()); // Store the selected date globally as string
+    setDob(currentDate.toDateString()); // Store the selected date globally as a string
+  };
+
+  const submit = () => {
+    setErrorCode(null);
+
+    if (!dateOfBirth || dateOfBirth.trim() === "") {
+      setErrorCode("Please select your date of birth");
+      return;
+    }
+
+    // Optional: Add age validation (e.g., 18+)
+    const selectedDate = new Date(dateOfBirth);
+    const today = new Date();
+    const age = today.getFullYear() - selectedDate.getFullYear();
+    const isOver18 = age > 18 || (age === 18 && today >= new Date(selectedDate.setFullYear(selectedDate.getFullYear() + 18)));
+
+    if (!isOver18) {
+      setErrorCode("You must be at least 18 years old");
+      return;
+    }
+
+    router.push("/genderInput");
   };
 
   return (
@@ -34,22 +57,7 @@ function DOBInput() {
             Please make sure it matches your ID Card
           </Text>
 
-          {/* <Text
-            onPress={() => setShow(true)} // Open the picker on press
-            style={{
-              marginTop: 20,
-              fontSize: 18,
-              borderBottomWidth: 1,
-              paddingVertical: 10,
-            }}
-          >
-            Selected date:{" "}
-            {dateOfBirth
-              ? new Date(dateOfBirth).toLocaleDateString()
-              : "Select your date of birth"}
-          </Text> */}
-
-          <View className=" mt-[50px] flex-row w-full rounded-2xl justify-center items-center">
+          <View className="mt-[50px] flex-row w-full rounded-2xl justify-center items-center">
             <DateTimePicker
               testID="dateTimePicker"
               value={date}
@@ -62,15 +70,15 @@ function DOBInput() {
             />
           </View>
 
+          {errorCode && (
+            <View className="flex-col w-full h-[45px] items-center justify-center bg-red-100 font-pextrabold rounded-xl mt-[10]">
+              <Text className="font-semibold text-red-500">{errorCode}</Text>
+            </View>
+          )}
+
           <CustomButton
             title="Continue"
-            handlePress={() => {
-              if (dateOfBirth.trim() === "") {
-                Alert.alert("Error", "Please select your date of birth");
-                return;
-              }
-              router.push("/genderInput");
-            }}
+            handlePress={submit}
             containerStyles="mt-[50px]"
             textColor="white"
             buttonBackgroundColor="#0162F1"
