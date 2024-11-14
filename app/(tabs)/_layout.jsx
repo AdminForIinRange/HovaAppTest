@@ -88,6 +88,7 @@ const TabLayout = () => {
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
+              
                 icon={icons.scaner}
                 color={color}
                 name="Scan"
@@ -107,7 +108,7 @@ const TabLayout = () => {
               <TabIcon
                 icon={icons.profile}
                 color={color}
-                name="Scan"
+                name="Profile"
                 focused={focused}
               />
             ),

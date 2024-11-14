@@ -38,7 +38,7 @@ const Welcome = () => {
     }, [])
   );
 
-  // if (true) return <Redirect href="/profile" />;
+  if (true) return <Redirect href="/scan" />;
 
 
   return (

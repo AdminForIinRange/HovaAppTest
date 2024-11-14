@@ -17,12 +17,20 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 import { router } from "expo-router";
 const Test = () => {
   const { user, setLoading } = useGlobalContext();
-
-  useEffect(() => {
-    if (user == null) {
-      router.replace("/(auth)/sign-in");
-    }
-  }, []);
+  //
+  //
+  //
+  //
+  // useEffect(() => {
+  //   if (user == null) {
+  //     router.replace("/(auth)/sign-in");
+  //   }
+  // }, []);
+  //
+  //
+  //
+  //
+  //
 
   return (
     <SafeAreaView className="bg-white h-full">
@@ -52,16 +60,28 @@ const Test = () => {
             </View>
           </View>
           <View className=" flex-row  justify-center   items-start w-full    px-4 my-4 ">
-            <View className="w-full h-[100px] bg-blue-600 rounded-xl">
-              <Text className="text-[16px] font-semibold text-primary  ">
-                {/* Welcome, {gender ? gender : "end"} */}
+            <View className="w-full h-[100px] bg-blue-600 rounded-xl flex-col justify-center   items-center  ">
+              <Text className="text-[22px] font-semibold text-white ">
+                Currently under development :)
               </Text>
             </View>
           </View>
-          <View className=" flex-row  justify-center   items-start w-full    px-4 my-4 ">
-            <View className="w-full h-[100px] bg-blue-600 rounded-xl">
-              <Text className="text-[16px] font-semibold text-primary  ">
-                {/* Welcome, {phoneNumber ? phoneNumber : "end"} */}
+          <View className=" flex-row  justify-center   items-start w-full   px-4 my-4 ">
+            <View className="w-full h-[200px]rounded-xl p-4">
+              <Text className="text-[38px] font-semibold text-black  ">
+                Welcome to{" "}
+                <Text
+                  className="text-[#0162F1] tracking-[-4.5px]   "
+                  style={{ fontWeight: "800" }}
+                >
+                  Hova{"   "}
+                </Text>
+                👋
+              </Text>
+              <Text className="text-[24px] font-regular text-black  mt-[24px] ">
+                We are a data and authentication compnay that uses inferded data
+                technology to provide secure and reliable authentication
+                services.
               </Text>
             </View>
           </View>
