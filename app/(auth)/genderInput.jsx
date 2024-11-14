@@ -41,7 +41,7 @@ function GenderInput() {
       return;
     }
 
-    router.push("/sign-up"); // Replace "/nextStep" with the actual route
+    router.push("/phoneInput"); // Replace "/nextStep" with the actual route
   };
 
   return (
