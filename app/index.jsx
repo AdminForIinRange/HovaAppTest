@@ -13,13 +13,7 @@ import { useFocusEffect } from '@react-navigation/native';  // Import the hook
 
 const Welcome = () => {
   const [show, setShow] = useState(false);
-  const [clickLogin, setclickLogin] = useState(false);
-  const [clickSignup, setclickSignup] = useState(false);
-  const [phoneNumberStage, setPhoneNumberStage] = useState(true);
-  const [OPTstage, setOPTstage] = useState(false);
-  const [verified, setverified] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
 
   const fadeAnim = useRef(new Animated.Value(0)).current;  // Start with opacity 0
 
@@ -113,7 +107,7 @@ const Welcome = () => {
         </View>
       </Modal>
 
-      <StatusBar backgroundColor="#161622" style="dark" />
+      <StatusBar backgroundColor="#161622" style="light" />
     </SafeAreaView>
   );
 };
